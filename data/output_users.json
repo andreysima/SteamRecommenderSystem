@@ -1,0 +1,2520 @@
+[
+  {
+    "steam64id": "76561198159350319",
+    "name": "William Stefan",
+    "friends": [
+      {
+        "steam64id": "76561197994413547"
+      },
+      {
+        "steam64id": "76561198155483539"
+      },
+      {
+        "steam64id": "76561198061973167"
+      },
+      {
+        "steam64id": "76561198062121714"
+      },
+      {
+        "steam64id": "76561198169977222"
+      },
+      {
+        "steam64id": "76561198099728269"
+      },
+      {
+        "steam64id": "76561198071053650"
+      },
+      {
+        "steam64id": "76561198093607360"
+      },
+      {
+        "steam64id": "76561198115471724"
+      },
+      {
+        "steam64id": "76561198063400917"
+      },
+      {
+        "steam64id": "76561198082203958"
+      },
+      {
+        "steam64id": "76561198256956836"
+      },
+      {
+        "steam64id": "76561198161238461"
+      },
+      {
+        "steam64id": "76561198162184494"
+      },
+      {
+        "steam64id": "76561198067770503"
+      },
+      {
+        "steam64id": "76561198100931064"
+      },
+      {
+        "steam64id": "76561198262580820"
+      },
+      {
+        "steam64id": "76561198056644183"
+      },
+      {
+        "steam64id": "76561198100562992"
+      },
+      {
+        "steam64id": "76561198191026638"
+      },
+      {
+        "steam64id": "76561198125948886"
+      },
+      {
+        "steam64id": "76561198216113523"
+      },
+      {
+        "steam64id": "76561198253352589"
+      },
+      {
+        "steam64id": "76561198095429433"
+      },
+      {
+        "steam64id": "76561198138496989"
+      },
+      {
+        "steam64id": "76561198143554388"
+      },
+      {
+        "steam64id": "76561198094556557"
+      },
+      {
+        "steam64id": "76561198110907103"
+      },
+      {
+        "steam64id": "76561198115580727"
+      },
+      {
+        "steam64id": "76561198118645234"
+      },
+      {
+        "steam64id": "76561198083148002"
+      },
+      {
+        "steam64id": "76561198133800190"
+      },
+      {
+        "steam64id": "76561198128920432"
+      },
+      {
+        "steam64id": "76561198078591818"
+      },
+      {
+        "steam64id": "76561198241040170"
+      },
+      {
+        "steam64id": "76561198154828803"
+      },
+      {
+        "steam64id": "76561198081770349"
+      },
+      {
+        "steam64id": "76561198077256766"
+      },
+      {
+        "steam64id": "76561198082483776"
+      },
+      {
+        "steam64id": "76561198138485740"
+      },
+      {
+        "steam64id": "76561198120429013"
+      },
+      {
+        "steam64id": "76561198168465363"
+      },
+      {
+        "steam64id": "76561198031492688"
+      },
+      {
+        "steam64id": "76561198255371963"
+      },
+      {
+        "steam64id": "76561198135898873"
+      },
+      {
+        "steam64id": "76561198168471230"
+      },
+      {
+        "steam64id": "76561198147982940"
+      }
+    ],
+    "games": [
+      {
+        "appID": "362190",
+        "name": "Mortal Kombat: Legacy II: The Fall of Liu Kang",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "32450",
+        "name": "Lego Indiana Jones 2",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "LucasArts",
+          "Lucasfilm",
+          "Disney Interactive"
+        ],
+        "genres": [
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "361770",
+        "name": "Mortal Kombat: Legacy: Scorpion and Sub-Zero (Part 2)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "361740",
+        "name": "Mortal Kombat: Legacy: Kitana \u0026 Mileena (Part 2)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "238460",
+        "name": "BattleBlock Theater",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "The Behemoth"
+        ],
+        "publishers": [
+          "The Behemoth"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Casual",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "361720",
+        "name": "Mortal Kombat: Legacy: Johnny Cage",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "32440",
+        "name": "LEGO® Star Wars™: The Complete Saga",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales",
+          "Feral Interactive (Mac)"
+        ],
+        "publishers": [
+          "LucasArts",
+          "Lucasfilm",
+          "Disney Interactive",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "255320",
+        "name": "Edna \u0026 Harvey: The Breakout",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Daedalic Entertainment"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ],
+        "genres": [
+          "Adventure",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "232790",
+        "name": "Broken Age",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Double Fine Productions"
+        ],
+        "publishers": [
+          "Double Fine Productions"
+        ],
+        "genres": [
+          "Adventure",
+          "Casual",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "570",
+        "name": "Dota 2",
+        "playtime_forever": 1828,
+        "isFree": false,
+        "developers": [
+          "Valve"
+        ],
+        "publishers": [
+          "Valve"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "268540",
+        "name": "The Whispered World Special Edition",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Daedalic Entertainment"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ],
+        "genres": [
+          "Adventure",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "361700",
+        "name": "Mortal Kombat: Legacy",
+        "playtime_forever": 18,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          "Warner Home Video"
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "204120",
+        "name": "LEGO Harry Potter: Years 5-7",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "genres": [
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "250180",
+        "name": "METAL SLUG 3",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DotEmu"
+        ],
+        "publishers": [
+          "SNK PLAYMORE"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "230820",
+        "name": "The Night of the Rabbit",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Daedalic Entertainment"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ],
+        "genres": [
+          "Adventure",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "311770",
+        "name": "LEGO® Pirates of the Caribbean The Video Game",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "Disney Interactive"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "362270",
+        "name": "Mortal Kombat: Legacy II: Liu Kang and Kung Lao",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "388080",
+        "name": "Borderless Gaming",
+        "playtime_forever": 4794,
+        "isFree": false,
+        "developers": [
+          "AndrewMD5",
+          "Codeusa"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          "Utilities"
+        ]
+      },
+      {
+        "appID": "313690",
+        "name": "LEGO® Batman™ 3: Beyond Gotham",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "TT Games Ltd",
+          "Feral Interactive (Mac)"
+        ],
+        "publishers": [
+          "WB Games",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "267530",
+        "name": "The LEGO® Movie - Videogame",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "TT Fusion",
+          "Traveller\u0027s Tales",
+          "Feral Interactive (Mac)"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "32510",
+        "name": "LEGO® Star Wars™ III: The Clone Wars™",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "LucasArts",
+          "Lucasfilm",
+          "Disney Interactive"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "268420",
+        "name": "Aura Kingdom",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "X-Legend"
+        ],
+        "publishers": [
+          "Aeria Games"
+        ],
+        "genres": [
+          "Adventure",
+          "Casual",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "331600",
+        "name": "ONE PIECE PIRATE WARRIORS 3",
+        "playtime_forever": 2241,
+        "isFree": false,
+        "developers": [
+          "KOEI TECMO GAMES CO., LTD."
+        ],
+        "publishers": [
+          "BANDAI NAMCO Entertainment"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "345350",
+        "name": "LIGHTNING RETURNS: FINAL FANTASY XIII",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "495470",
+        "name": "Mortal Kombat: Legacy II: Prelude",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          ""
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "362250",
+        "name": "Mortal Kombat: Legacy II: Scorpion and Sub-Zero (Part 2)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "361780",
+        "name": "Mortal Kombat: Legacy: Cyrax \u0026 Sektor",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "249130",
+        "name": "LEGO® MARVEL Super Heroes",
+        "playtime_forever": 27,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "362240",
+        "name": "Mortal Kombat: Legacy II: Scorpion and Sub-Zero (Part 1)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "292120",
+        "name": "FINAL FANTASY XIII",
+        "playtime_forever": 1114,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "362180",
+        "name": "Mortal Kombat: Legacy II: Reunited in Macau",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "362230",
+        "name": "Mortal Kombat: Legacy II: Johnny Cage",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "327890",
+        "name": "I am Bread",
+        "playtime_forever": 6,
+        "isFree": false,
+        "developers": [
+          "Bossa Studios"
+        ],
+        "publishers": [
+          "Bossa Studios"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Indie",
+          "Simulation"
+        ]
+      },
+      {
+        "appID": "340170",
+        "name": "FINAL FANTASY TYPE-0 HD",
+        "playtime_forever": 71,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "Action",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "361710",
+        "name": "Mortal Kombat: Legacy: Jax, Sonya and Kano (Part 2)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "319630",
+        "name": "Life Is Strange™",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DONTNOD Entertainment",
+          "Feral Interactive (Mac)",
+          "Feral Interactive (Linux)"
+        ],
+        "publishers": [
+          "Square Enix",
+          "Feral interactive (Mac)",
+          "Feral Interactive (Linux)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "361760",
+        "name": "Mortal Kombat: Legacy: Scorpion and Sub-Zero (Part 1)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "292910",
+        "name": "Deponia: The Complete Journey",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Daedalic Entertainment"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ],
+        "genres": [
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "312610",
+        "name": "METAL SLUG X",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DotEmu"
+        ],
+        "publishers": [
+          "SNK Playmore"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "219910",
+        "name": "Edna \u0026 Harvey: Harvey\u0027s New Eyes",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Daedalic Entertainment"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ],
+        "genres": [
+          "Adventure",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "323470",
+        "name": "DRAGON BALL XENOVERSE",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DIMPS"
+        ],
+        "publishers": [
+          "BANDAI NAMCO Entertainment"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "495460",
+        "name": "Mortal Kombat: Legacy: Jax, Sonya and Kano (Part 1)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          ""
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "21130",
+        "name": "Lego Harry Potter",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "TT Games"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "242700",
+        "name": "Injustice: Gods Among Us Ultimate Edition",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "High Voltage Software"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "366250",
+        "name": "METAL SLUG",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DotEmu"
+        ],
+        "publishers": [
+          "SNK Playmore"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "61700",
+        "name": "Might \u0026 Magic: Clash of Heroes",
+        "playtime_forever": 3768,
+        "playtime_2weeks": 39,
+        "isFree": false,
+        "developers": [
+          "Capybara Games"
+        ],
+        "publishers": [
+          "Ubisoft"
+        ],
+        "genres": [
+          "RPG",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "251150",
+        "name": "The Legend of Heroes: Trails in the Sky",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Nihon Falcom"
+        ],
+        "publishers": [
+          "XSEED",
+          "Marvelous USA, Inc."
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "361730",
+        "name": "Mortal Kombat: Legacy: Kitana \u0026 Mileena (Part 1)",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "361750",
+        "name": "Mortal Kombat: Legacy: Raiden",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "362200",
+        "name": "Mortal Kombat: Legacy II: Kenshi\u0027s Origin",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "449540",
+        "name": "There\u0027s Poop In My Soup",
+        "playtime_forever": 40,
+        "isFree": false,
+        "developers": [
+          "Rudder Games"
+        ],
+        "publishers": [
+          "Rudder Games"
+        ],
+        "genres": [
+          "Casual",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "285160",
+        "name": "LEGO® The Hobbit™",
+        "playtime_forever": 661,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales",
+          "Feral Interactive (Mac)"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "213330",
+        "name": "LEGO Batman 2",
+        "playtime_forever": 44,
+        "isFree": false,
+        "developers": [
+          "TT Games"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment "
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "352400",
+        "name": "LEGO® Jurassic World",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "TT Games Ltd",
+          "Feral Interactive (Mac)"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment",
+          "Feral Interactive (Mac)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "410850",
+        "name": "Dragon Quest Heroes",
+        "playtime_forever": 36,
+        "isFree": false,
+        "developers": [
+          "KOEI TECMO GAMES CO., LTD."
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "Action",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "39150",
+        "name": "FINAL FANTASY VIII",
+        "playtime_forever": 19,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "Square Enix"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "362260",
+        "name": "Mortal Kombat: Legacy II: Liu Kang",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "362280",
+        "name": "Mortal Kombat: Legacy II",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          "Warner Home Video"
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "234670",
+        "name": "NARUTO SHIPPUDEN: Ultimate Ninja STORM 3 Full Burst",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "CyberConnect 2"
+        ],
+        "publishers": [
+          "BANDAI NAMCO Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "377840",
+        "name": "FINAL FANTASY IX",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "362220",
+        "name": "Mortal Kombat: Legacy II: Kitana and Mileena",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      },
+      {
+        "appID": "214510",
+        "name": "LEGO® The Lord of the Rings™",
+        "playtime_forever": 116,
+        "isFree": false,
+        "developers": [
+          "Traveller\u0027s Tales"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "237110",
+        "name": "Mortal Kombat Komplete Edition",
+        "playtime_forever": 7,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "High Voltage Software"
+        ],
+        "publishers": [
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "39140",
+        "name": "FINAL FANTASY VII",
+        "playtime_forever": 1566,
+        "isFree": false,
+        "developers": [
+          "Square Enix"
+        ],
+        "publishers": [
+          "Square Enix"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "292140",
+        "name": "FINAL FANTASY XIII-2",
+        "playtime_forever": 2924,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "12210",
+        "name": "Grand Theft Auto IV",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Rockstar North",
+          "Rockstar Toronto"
+        ],
+        "publishers": [
+          "Rockstar Games"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "362210",
+        "name": "Mortal Kombat: Legacy II: Kenshi Encounters Ermac",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "NetherRealm Studios",
+          "Warner Bros. Interactive Entertainment"
+        ],
+        "publishers": [
+          ""
+        ],
+        "genres": [
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "steam64id": "76561198115471724",
+    "name": "Ace",
+    "friends": [
+      {
+        "steam64id": "76561198071053650"
+      },
+      {
+        "steam64id": "76561198140252721"
+      },
+      {
+        "steam64id": "76561198155483539"
+      },
+      {
+        "steam64id": "76561198024699684"
+      },
+      {
+        "steam64id": "76561198135898873"
+      },
+      {
+        "steam64id": "76561198168471230"
+      },
+      {
+        "steam64id": "76561198256956836"
+      },
+      {
+        "steam64id": "76561198136829816"
+      },
+      {
+        "steam64id": "76561198191008141"
+      },
+      {
+        "steam64id": "76561198169977222"
+      },
+      {
+        "steam64id": "76561198291869380"
+      },
+      {
+        "steam64id": "76561198099728269"
+      },
+      {
+        "steam64id": "76561198093607360"
+      },
+      {
+        "steam64id": "76561198143598752"
+      },
+      {
+        "steam64id": "76561198138485740"
+      },
+      {
+        "steam64id": "76561198254379970"
+      },
+      {
+        "steam64id": "76561198117164399"
+      },
+      {
+        "steam64id": "76561198043402630"
+      },
+      {
+        "steam64id": "76561198126113307"
+      },
+      {
+        "steam64id": "76561198168465363"
+      },
+      {
+        "steam64id": "76561198094556557"
+      },
+      {
+        "steam64id": "76561198145376624"
+      },
+      {
+        "steam64id": "76561198255371963"
+      },
+      {
+        "steam64id": "76561198110472658"
+      },
+      {
+        "steam64id": "76561198062121714"
+      },
+      {
+        "steam64id": "76561198169297441"
+      },
+      {
+        "steam64id": "76561197994413547"
+      },
+      {
+        "steam64id": "76561198110907103"
+      },
+      {
+        "steam64id": "76561198128920432"
+      },
+      {
+        "steam64id": "76561198073850868"
+      },
+      {
+        "steam64id": "76561198082203958"
+      },
+      {
+        "steam64id": "76561198220594793"
+      },
+      {
+        "steam64id": "76561198025331909"
+      },
+      {
+        "steam64id": "76561198143554388"
+      },
+      {
+        "steam64id": "76561198067770503"
+      },
+      {
+        "steam64id": "76561198159350319"
+      },
+      {
+        "steam64id": "76561198126381084"
+      },
+      {
+        "steam64id": "76561198216113523"
+      },
+      {
+        "steam64id": "76561198125948886"
+      },
+      {
+        "steam64id": "76561198191026638"
+      },
+      {
+        "steam64id": "76561198085920158"
+      },
+      {
+        "steam64id": "76561198117080468"
+      },
+      {
+        "steam64id": "76561198108634514"
+      },
+      {
+        "steam64id": "76561198147982940"
+      },
+      {
+        "steam64id": "76561198168436099"
+      },
+      {
+        "steam64id": "76561198124732885"
+      },
+      {
+        "steam64id": "76561198144186653"
+      },
+      {
+        "steam64id": "76561198078591818"
+      },
+      {
+        "steam64id": "76561198081770349"
+      },
+      {
+        "steam64id": "76561198056644183"
+      },
+      {
+        "steam64id": "76561198114829211"
+      },
+      {
+        "steam64id": "76561198241040170"
+      },
+      {
+        "steam64id": "76561198083148002"
+      },
+      {
+        "steam64id": "76561198137249026"
+      },
+      {
+        "steam64id": "76561198162184494"
+      },
+      {
+        "steam64id": "76561198274080198"
+      },
+      {
+        "steam64id": "76561198063400917"
+      },
+      {
+        "steam64id": "76561198014344667"
+      },
+      {
+        "steam64id": "76561198276102690"
+      },
+      {
+        "steam64id": "76561198118645234"
+      },
+      {
+        "steam64id": "76561198133817472"
+      },
+      {
+        "steam64id": "76561198117979358"
+      },
+      {
+        "steam64id": "76561198118691430"
+      },
+      {
+        "steam64id": "76561198079696802"
+      },
+      {
+        "steam64id": "76561198198041118"
+      },
+      {
+        "steam64id": "76561198110915768"
+      },
+      {
+        "steam64id": "76561198063506153"
+      },
+      {
+        "steam64id": "76561198124928049"
+      },
+      {
+        "steam64id": "76561198113783369"
+      },
+      {
+        "steam64id": "76561198061973167"
+      },
+      {
+        "steam64id": "76561198118614407"
+      },
+      {
+        "steam64id": "76561198115796772"
+      },
+      {
+        "steam64id": "76561198188325310"
+      },
+      {
+        "steam64id": "76561198082483776"
+      },
+      {
+        "steam64id": "76561198047537671"
+      },
+      {
+        "steam64id": "76561198031492688"
+      },
+      {
+        "steam64id": "76561198107406020"
+      },
+      {
+        "steam64id": "76561198123143871"
+      },
+      {
+        "steam64id": "76561198100931064"
+      },
+      {
+        "steam64id": "76561198052122259"
+      },
+      {
+        "steam64id": "76561198115580727"
+      },
+      {
+        "steam64id": "76561198141824820"
+      },
+      {
+        "steam64id": "76561198161238461"
+      },
+      {
+        "steam64id": "76561198138496989"
+      },
+      {
+        "steam64id": "76561198017133066"
+      },
+      {
+        "steam64id": "76561198108207042"
+      },
+      {
+        "steam64id": "76561198120429013"
+      },
+      {
+        "steam64id": "76561198095429433"
+      },
+      {
+        "steam64id": "76561198211314889"
+      },
+      {
+        "steam64id": "76561198257615729"
+      },
+      {
+        "steam64id": "76561198158434962"
+      },
+      {
+        "steam64id": "76561198253352589"
+      },
+      {
+        "steam64id": "76561198154828803"
+      }
+    ],
+    "games": [
+      {
+        "appID": "351970",
+        "name": "Tales of Zestiria",
+        "playtime_forever": 7273,
+        "isFree": false,
+        "developers": [
+          "BANDAI NAMCO Studio Inc."
+        ],
+        "publishers": [
+          "BANDAI NAMCO Entertainment"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "372360",
+        "name": "Tales of Symphonia",
+        "playtime_forever": 25,
+        "isFree": false,
+        "developers": [
+          "BANDAI NAMCO Entertainment Inc."
+        ],
+        "publishers": [
+          "BANDAI NAMCO Entertainment"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "48000",
+        "name": "LIMBO",
+        "playtime_forever": 1,
+        "isFree": false,
+        "developers": [
+          "Playdead"
+        ],
+        "publishers": [
+          "Playdead"
+        ],
+        "genres": [
+          "Adventure",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "50620",
+        "name": "Darksiders",
+        "playtime_forever": 25,
+        "isFree": false,
+        "developers": [
+          "Vigil Games"
+        ],
+        "publishers": [
+          "Nordic Games"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "236110",
+        "name": "Dungeon Defenders II",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Trendy Entertainment"
+        ],
+        "publishers": [
+          "Trendy Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie",
+          "RPG",
+          "Strategy",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "268420",
+        "name": "Aura Kingdom",
+        "playtime_forever": 688,
+        "isFree": false,
+        "developers": [
+          "X-Legend"
+        ],
+        "publishers": [
+          "Aeria Games"
+        ],
+        "genres": [
+          "Adventure",
+          "Casual",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "207230",
+        "name": "Archeblade",
+        "playtime_forever": 17,
+        "isFree": false,
+        "developers": [
+          "CodeBrush Games"
+        ],
+        "publishers": [
+          "Codebrush Games"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "730",
+        "name": "Counter-Strike: Global Offensive",
+        "playtime_forever": 155,
+        "isFree": false,
+        "developers": [
+          "Valve"
+        ],
+        "publishers": [
+          "Valve"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "230410",
+        "name": "Warframe",
+        "playtime_forever": 1007,
+        "isFree": false,
+        "developers": [
+          "Digital Extremes"
+        ],
+        "publishers": [
+          "Digital Extremes"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "359870",
+        "name": "FINAL FANTASY X/X-2 HD Remaster",
+        "playtime_forever": 3,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "570",
+        "name": "Dota 2",
+        "playtime_forever": 69309,
+        "playtime_2weeks": 1121,
+        "isFree": false,
+        "developers": [
+          "Valve"
+        ],
+        "publishers": [
+          "Valve"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "292120",
+        "name": "FINAL FANTASY XIII",
+        "playtime_forever": 2202,
+        "isFree": false,
+        "developers": [
+          "SQUARE ENIX"
+        ],
+        "publishers": [
+          "SQUARE ENIX"
+        ],
+        "genres": [
+          "RPG"
+        ]
+      },
+      {
+        "appID": "301520",
+        "name": "Robocraft",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Freejam"
+        ],
+        "publishers": [
+          "Freejam"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie",
+          "Massively Multiplayer",
+          "RPG",
+          "Simulation",
+          "Early Access"
+        ]
+      }
+    ]
+  },
+  {
+    "steam64id": "76561198118645234",
+    "name": "joenathan17",
+    "friends": [
+      {
+        "steam64id": "76561198033661818"
+      },
+      {
+        "steam64id": "76561198169977222"
+      },
+      {
+        "steam64id": "76561198091805648"
+      },
+      {
+        "steam64id": "76561198124928049"
+      },
+      {
+        "steam64id": "76561198099728269"
+      },
+      {
+        "steam64id": "76561198189913134"
+      },
+      {
+        "steam64id": "76561198110905910"
+      },
+      {
+        "steam64id": "76561198082483776"
+      },
+      {
+        "steam64id": "76561198253352589"
+      },
+      {
+        "steam64id": "76561198083148002"
+      },
+      {
+        "steam64id": "76561198113527230"
+      },
+      {
+        "steam64id": "76561198128920432"
+      },
+      {
+        "steam64id": "76561198056644183"
+      },
+      {
+        "steam64id": "76561198220594793"
+      },
+      {
+        "steam64id": "76561198147982940"
+      },
+      {
+        "steam64id": "76561198156177619"
+      },
+      {
+        "steam64id": "76561198082203958"
+      },
+      {
+        "steam64id": "76561198093393873"
+      },
+      {
+        "steam64id": "76561198093607360"
+      },
+      {
+        "steam64id": "76561198145871764"
+      },
+      {
+        "steam64id": "76561198241040170"
+      },
+      {
+        "steam64id": "76561198128169200"
+      },
+      {
+        "steam64id": "76561198067770503"
+      },
+      {
+        "steam64id": "76561198168471230"
+      },
+      {
+        "steam64id": "76561198172611018"
+      },
+      {
+        "steam64id": "76561198257615729"
+      },
+      {
+        "steam64id": "76561198256956836"
+      },
+      {
+        "steam64id": "76561198062121714"
+      },
+      {
+        "steam64id": "76561198154828803"
+      },
+      {
+        "steam64id": "76561198120429013"
+      },
+      {
+        "steam64id": "76561198159350319"
+      },
+      {
+        "steam64id": "76561198070785346"
+      },
+      {
+        "steam64id": "76561197994413547"
+      },
+      {
+        "steam64id": "76561198078591818"
+      },
+      {
+        "steam64id": "76561198143554388"
+      },
+      {
+        "steam64id": "76561198094556557"
+      },
+      {
+        "steam64id": "76561198095429433"
+      },
+      {
+        "steam64id": "76561198052848687"
+      },
+      {
+        "steam64id": "76561198115471724"
+      },
+      {
+        "steam64id": "76561198100931064"
+      },
+      {
+        "steam64id": "76561198135107945"
+      },
+      {
+        "steam64id": "76561198138496989"
+      },
+      {
+        "steam64id": "76561198215433584"
+      },
+      {
+        "steam64id": "76561198110907103"
+      },
+      {
+        "steam64id": "76561198111654368"
+      },
+      {
+        "steam64id": "76561198016645068"
+      },
+      {
+        "steam64id": "76561198125948886"
+      },
+      {
+        "steam64id": "76561198031492688"
+      },
+      {
+        "steam64id": "76561198191026638"
+      },
+      {
+        "steam64id": "76561198061973167"
+      },
+      {
+        "steam64id": "76561198216113523"
+      },
+      {
+        "steam64id": "76561198155483539"
+      },
+      {
+        "steam64id": "76561198168465363"
+      },
+      {
+        "steam64id": "76561198115580727"
+      },
+      {
+        "steam64id": "76561198094578065"
+      },
+      {
+        "steam64id": "76561198145844294"
+      },
+      {
+        "steam64id": "76561198255371963"
+      }
+    ],
+    "games": [
+      {
+        "appID": "230410",
+        "name": "Warframe",
+        "playtime_forever": 20134,
+        "isFree": false,
+        "developers": [
+          "Digital Extremes"
+        ],
+        "publishers": [
+          "Digital Extremes"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "222900",
+        "name": "Dead Island: Epidemic",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Stunlock Studios"
+        ],
+        "publishers": [
+          "Deep Silver"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "312990",
+        "name": "The Expendabros",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Free Lives"
+        ],
+        "publishers": [
+          "Devolver Digital"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Free to Play",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "209870",
+        "name": "Blacklight: Retribution",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Hardsuit Labs"
+        ],
+        "publishers": [
+          "Perfect World Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "207230",
+        "name": "Archeblade",
+        "playtime_forever": 30,
+        "isFree": false,
+        "developers": [
+          "CodeBrush Games"
+        ],
+        "publishers": [
+          "Codebrush Games"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "272890",
+        "name": "Vertiginous Golf",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Kinelco \u0026 Lone Elk Creative"
+        ],
+        "publishers": [
+          "Surprise Attack"
+        ],
+        "genres": [
+          "Indie",
+          "Sports"
+        ]
+      },
+      {
+        "appID": "218620",
+        "name": "PAYDAY 2",
+        "playtime_forever": 2602,
+        "isFree": false,
+        "developers": [
+          "OVERKILL - a Starbreeze Studio."
+        ],
+        "publishers": [
+          "505 Games"
+        ],
+        "genres": [
+          "Action",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "109600",
+        "name": "Neverwinter",
+        "playtime_forever": 483,
+        "isFree": false,
+        "developers": [
+          "Cryptic Studios"
+        ],
+        "publishers": [
+          "Perfect World Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "290930",
+        "name": "Half-Life 2: Update",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Filip Victor",
+          "Valve"
+        ],
+        "publishers": [
+          "Filip Victor"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "236110",
+        "name": "Dungeon Defenders II",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Trendy Entertainment"
+        ],
+        "publishers": [
+          "Trendy Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie",
+          "RPG",
+          "Strategy",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "361640",
+        "name": "Disney Infinity 3.0: Play Without Limits",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Avalanche"
+        ],
+        "publishers": [
+          "Disney Interactive"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "304930",
+        "name": "Unturned",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Smartly Dressed Games"
+        ],
+        "publishers": [
+          "Smartly Dressed Games"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Casual",
+          "Free to Play",
+          "Indie",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "113400",
+        "name": "APB Reloaded",
+        "playtime_forever": 49,
+        "isFree": false,
+        "developers": [
+          "Reloaded Productions"
+        ],
+        "publishers": [
+          "Reloaded Games"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Massively Multiplayer"
+        ]
+      },
+      {
+        "appID": "356670",
+        "name": "Spooky\u0027s Jump Scare Mansion",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Lag Studios"
+        ],
+        "publishers": [
+          "Lag Studios"
+        ],
+        "genres": [
+          "Action",
+          "Adventure",
+          "Free to Play",
+          "Indie"
+        ]
+      },
+      {
+        "appID": "355840",
+        "name": "Survarium",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Vostok Games"
+        ],
+        "publishers": [
+          "Vostok Games"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "363970",
+        "name": "Clicker Heroes",
+        "playtime_forever": 1061,
+        "isFree": false,
+        "developers": [
+          "Playsaurus"
+        ],
+        "publishers": [
+          "Playsaurus"
+        ],
+        "genres": [
+          "Adventure",
+          "Casual",
+          "Free to Play",
+          "Indie",
+          "RPG",
+          "Simulation",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "243870",
+        "name": "Tom Clancy\u0027s Ghost Recon Phantoms - NA",
+        "playtime_forever": 241,
+        "isFree": false,
+        "developers": [
+          "Ubisoft Singapore"
+        ],
+        "publishers": [
+          "Ubisoft"
+        ],
+        "genres": [
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "236390",
+        "name": "War Thunder",
+        "playtime_forever": 8,
+        "isFree": false,
+        "developers": [
+          "Gaijin Entertainment"
+        ],
+        "publishers": [
+          "Gaijin Entertainment"
+        ],
+        "genres": [
+          "Free to Play",
+          "Massively Multiplayer",
+          "Simulation"
+        ]
+      },
+      {
+        "appID": "291480",
+        "name": "Warface",
+        "playtime_forever": 430,
+        "isFree": false,
+        "developers": [
+          "Crytek"
+        ],
+        "publishers": [
+          "Crytek "
+        ],
+        "genres": [
+          "Action",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "319630",
+        "name": "Life Is Strange™",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "DONTNOD Entertainment",
+          "Feral Interactive (Mac)",
+          "Feral Interactive (Linux)"
+        ],
+        "publishers": [
+          "Square Enix",
+          "Feral interactive (Mac)",
+          "Feral Interactive (Linux)"
+        ],
+        "genres": [
+          "Action",
+          "Adventure"
+        ]
+      },
+      {
+        "appID": "271290",
+        "name": "HAWKEN",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Reloaded Games"
+        ],
+        "publishers": [
+          "Reloaded Games"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "268420",
+        "name": "Aura Kingdom",
+        "playtime_forever": 1,
+        "isFree": false,
+        "developers": [
+          "X-Legend"
+        ],
+        "publishers": [
+          "Aeria Games"
+        ],
+        "genres": [
+          "Adventure",
+          "Casual",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "218230",
+        "name": "PlanetSide 2",
+        "playtime_forever": 1,
+        "isFree": false,
+        "developers": [
+          "Daybreak Game Company"
+        ],
+        "publishers": [
+          "Daybreak Game Company"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Massively Multiplayer"
+        ]
+      },
+      {
+        "appID": "224600",
+        "name": "Defiance",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Trion Worlds, Inc."
+        ],
+        "publishers": [
+          "Trion Worlds, Inc."
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "227940",
+        "name": "Heroes \u0026 Generals",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Reto-Moto"
+        ],
+        "publishers": [
+          "Reto-Moto"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie",
+          "Massively Multiplayer",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "310380",
+        "name": "Fractured Space",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Edge Case Games Ltd."
+        ],
+        "publishers": [
+          "Edge Case Games Ltd."
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Indie",
+          "Strategy",
+          "Early Access"
+        ]
+      },
+      {
+        "appID": "333930",
+        "name": "Dirty Bomb",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Splash Damage®"
+        ],
+        "publishers": [
+          "Nexon America Inc"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "357480",
+        "name": "Frozen Free Fall: Snowball Fight",
+        "playtime_forever": 13,
+        "isFree": false,
+        "developers": [
+          "SuperVillain Studios"
+        ],
+        "publishers": [
+          "Disney Interactive"
+        ],
+        "genres": [
+          "Casual",
+          "Free to Play"
+        ]
+      },
+      {
+        "appID": "730",
+        "name": "Counter-Strike: Global Offensive",
+        "playtime_forever": 26584,
+        "playtime_2weeks": 6,
+        "isFree": false,
+        "developers": [
+          "Valve"
+        ],
+        "publishers": [
+          "Valve"
+        ],
+        "genres": [
+          "Action"
+        ]
+      },
+      {
+        "appID": "427270",
+        "name": "Orcs Must Die! Unchained",
+        "playtime_forever": 14,
+        "isFree": false,
+        "developers": [
+          "Robot Entertainment"
+        ],
+        "publishers": [
+          "Robot Entertainment",
+          "Gameforge 4D GmbH"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "349480",
+        "name": "Modular Combat",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Ascension Entertainment LLC"
+        ],
+        "publishers": [
+          "Steam Greenlight"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "570",
+        "name": "Dota 2",
+        "playtime_forever": 51842,
+        "playtime_2weeks": 1220,
+        "isFree": false,
+        "developers": [
+          "Valve"
+        ],
+        "publishers": [
+          "Valve"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Strategy"
+        ]
+      },
+      {
+        "appID": "38830",
+        "name": "CrimeCraft GangWars",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Vogster Entertainment"
+        ],
+        "publishers": [
+          "Vogster Entertainment"
+        ],
+        "genres": [
+          "Action",
+          "Free to Play",
+          "Massively Multiplayer",
+          "RPG"
+        ]
+      },
+      {
+        "appID": "262410",
+        "name": "World of Guns: Gun Disassembly",
+        "playtime_forever": 0,
+        "isFree": false,
+        "developers": [
+          "Noble Empire Corp."
+        ],
+        "publishers": [
+          "Noble Empire Corp."
+        ],
+        "genres": [
+          "Free to Play",
+          "Indie",
+          "Simulation"
+        ]
+      }
+    ]
+  }
+]
