@@ -2,6 +2,7 @@ package srecsys.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * kelas untuk mendefinisikan game
@@ -18,6 +19,8 @@ public class Game {
     public List<String> developers;
     public List<String> publishers;
     public List<String> genres;
+    public Map<String, Double> game_terms;
+    
     
     public Game(){
         this.appID = null;

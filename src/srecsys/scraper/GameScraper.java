@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.JSONObject; 
 import org.jsoup.Jsoup;
 
 import srecsys.model.Game;
@@ -197,10 +197,52 @@ public class GameScraper {
         }
     }
     
+    // membuat file json untuk semua game
+    public void createJSONFile() throws InterruptedException, IOException{
+        JSONArray gameArray = new JSONArray();
+        JSONObject game = new JSONObject();
+        JSONArray developersArray = new JSONArray();
+        JSONArray publishersArray = new JSONArray();
+        JSONArray genresArray = new JSONArray();
+        
+        for(int i = 0; i < applist.size(); i++){
+            int id = filterGames(i);
+            if(id > 0){
+                game.put("appID", gamelist.get(id).getAppID());
+                game.put("name", gamelist.get(id).getName());
+                for(int j = 0; j < gamelist.get(id).developers.size(); j++){
+                    developersArray = new JSONArray();
+                    developersArray.put(gamelist.get(id).developers.get(j));
+                }
+                game.put("Developers", developersArray);
+                for(int j = 0; j < gamelist.get(id).publishers.size(); j++){
+                    publishersArray = new JSONArray();
+                    publishersArray.put(gamelist.get(id).publishers.get(j));
+                }
+                game.put("Publishers", publishersArray);
+                for(int j = 0; j < gamelist.get(id).genres.size(); j++){
+                    genresArray = new JSONArray();
+                    genresArray.put(gamelist.get(id).genres.get(j));
+                }
+                game.put("Genres", genresArray);
+                game.put("Detailed Description", gamelist.get(id).getDetailed_description());
+                game.put("About the Game", gamelist.get(id).getAbout_the_game());
+            }
+            gameArray.put(game);
+        }
+        
+        JSONObject gameObj = new JSONObject();
+        gameObj.put("Games", gameArray);
+        
+        try (FileWriter file = new FileWriter("data/steamgamelistraw.json")) {
+            file.write(gameObj.toString());
+            System.out.println("Successfully Copied JSON Object to File...");
+	}
+    }
     public static void main(String[] args) throws IOException, InterruptedException{
         GameScraper gs = new GameScraper();
 
         gs.scrapeApps();
-        gs.createCSVFile();
+        gs.createJSONFile();
     }
 }
