@@ -1,0 +1,67 @@
+{
+	"Games":[
+		{
+			"Developers":["Valve"],
+			"appID":"20",
+			"Publishers":["Valve"],
+			"Detailed Description":"One of the most popular online action games of all time, Team Fortress Classic features over nine character classes -- from Medic to Spy to Demolition Man -- enlisted in a unique style of online team warfare. Each character class possesses unique weapons, items, and abilities, as teams compete online in a variety of game play modes.",
+			"Genres":["Action"],
+			"About the Game":"One of the most popular online action games of all time, Team Fortress Classic features over nine character classes -- from Medic to Spy to Demolition Man -- enlisted in a unique style of online team warfare. Each character class possesses unique weapons, items, and abilities, as teams compete online in a variety of game play modes.",
+			"Name":"Team Fortress Classic"
+		},
+		{
+			"Developers":["Valve"],
+			"appID":"30",
+			"Publishers":["Valve"],
+			"Detailed Description":"Enlist in an intense brand of Axis vs. Allied teamplay set in the WWII European Theatre of Operations. Players assume the role of light/assault/heavy infantry, sniper or machine-gunner class, each with a unique arsenal of historical weaponry at their disposal. Missions are based on key historical operations. And, as war rages, players must work together with their squad to accomplish a variety of mission-specific objectives.",
+			"Genres":["Action"],
+			"About the Game":"Enlist in an intense brand of Axis vs. Allied teamplay set in the WWII European Theatre of Operations. Players assume the role of light/assault/heavy infantry, sniper or machine-gunner class, each with a unique arsenal of historical weaponry at their disposal. Missions are based on key historical operations. And, as war rages, players must work together with their squad to accomplish a variety of mission-specific objectives.",
+			"Name":"Day of Defeat"
+		},
+		{
+			"Developers":["Valve"],
+			"appID":"40",
+			"Publishers":["Valve"],
+			"Detailed Description":"Enjoy fast-paced multiplayer gaming with Deathmatch Classic (a.k.a. DMC). Valve's tribute to the work of id software, DMC invites players to grab their rocket launchers and put their reflexes to the test in a collection of futuristic settings.",
+			"Genres":["Action"],
+			"About the Game":"Enjoy fast-paced multiplayer gaming with Deathmatch Classic (a.k.a. DMC). Valve's tribute to the work of id software, DMC invites players to grab their rocket launchers and put their reflexes to the test in a collection of futuristic settings.",
+			"Name":"Deathmatch Classic"
+		},
+		{
+			"Developers":["Gearbox Software"],
+			"appID":"50",
+			"Publishers":["Valve"],
+			"Detailed Description":"Return to the Black Mesa Research Facility as one of the military specialists assigned to eliminate Gordon Freeman. Experience an entirely new episode of single player action. Meet fierce alien opponents, and experiment with new weaponry. Named 'Game of the Year' by the Academy of Interactive Arts and Sciences.",
+			"Genres":["Action"],
+			"About the Game":"Return to the Black Mesa Research Facility as one of the military specialists assigned to eliminate Gordon Freeman. Experience an entirely new episode of single player action. Meet fierce alien opponents, and experiment with new weaponry. Named 'Game of the Year' by the Academy of Interactive Arts and Sciences.",
+			"Name":"Half-Life: Opposing Force"
+		},
+		{
+			"Developers":["Valve"],
+			"appID":"60",
+			"Publishers":["Valve"],
+			"Detailed Description":"A futuristic action game that challenges your agility as well as your aim, Ricochet features one-on-one and team matches played in a variety of futuristic battle arenas.",
+			"Genres":["Action"],
+			"About the Game":"A futuristic action game that challenges your agility as well as your aim, Ricochet features one-on-one and team matches played in a variety of futuristic battle arenas.",
+			"Name":"Ricochet"
+		},
+		{
+			"Developers":["Valve"],
+			"appID":"70",
+			"Publishers":["Valve"],
+			"Detailed Description":"Named Game of the Year by over 50 publications, Valve's debut title blends action and adventure with award-winning technology to create a frighteningly realistic world where players must think to survive. Also includes an exciting multiplayer mode that allows you to play against friends and enemies around the world.",
+			"Genres":["Action"],
+			"About the Game":"Named Game of the Year by over 50 publications, Valve's debut title blends action and adventure with award-winning technology to create a frighteningly realistic world where players must think to survive. Also includes an exciting multiplayer mode that allows you to play against friends and enemies around the world.",
+			"Name":"Half-Life"
+		},
+		{
+			"Developers":["Valve"],
+			"appID":"80",
+			"Publishers":["Valve"],
+			"Detailed Description":"With its extensive Tour of Duty campaign, a near-limitless number of skirmish modes, updates and new content for Counter-Strike's award-winning multiplayer game play, plus over 12 bonus single player missions, Counter-Strike: Condition Zero is a tremendous offering of single and multiplayer content.",
+			"Genres":["Action"],
+			"About the Game":"With its extensive Tour of Duty campaign, a near-limitless number of skirmish modes, updates and new content for Counter-Strike's award-winning multiplayer game play, plus over 12 bonus single player missions, Counter-Strike: Condition Zero is a tremendous offering of single and multiplayer content.",
+			"Name":"Counter-Strike: Condition Zero"
+		}
+	]
+}

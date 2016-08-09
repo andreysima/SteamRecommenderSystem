@@ -43,7 +43,7 @@ public class GameScraper {
     // memfilter untuk mengambil game saja, bukan aplikasi
     public int filterGames(int i) throws InterruptedException, IOException{
         
-        System.out.println("Filtering games with appID : " + applist.get(i));
+        System.out.println("Filtering apps with appID : " + applist.get(i));
         String gameuri = String.format(
                 "http://store.steampowered.com/api/appdetails?appids=%s",
                     applist.get(i));
@@ -204,12 +204,14 @@ public class GameScraper {
         JSONArray developersArray = new JSONArray();
         JSONArray publishersArray = new JSONArray();
         JSONArray genresArray = new JSONArray();
+        JSONObject gameObj = new JSONObject();
         
         for(int i = 0; i < applist.size(); i++){
             int id = filterGames(i);
             if(id > 0){
+                game = new JSONObject();
                 game.put("appID", gamelist.get(id).getAppID());
-                game.put("name", gamelist.get(id).getName());
+                game.put("Name", gamelist.get(id).getName());
                 for(int j = 0; j < gamelist.get(id).developers.size(); j++){
                     developersArray = new JSONArray();
                     developersArray.put(gamelist.get(id).developers.get(j));
@@ -227,18 +229,19 @@ public class GameScraper {
                 game.put("Genres", genresArray);
                 game.put("Detailed Description", gamelist.get(id).getDetailed_description());
                 game.put("About the Game", gamelist.get(id).getAbout_the_game());
+                gameArray.put(game);
             }
-            gameArray.put(game);
+            gameObj.put("Games", gameArray);
+            if(i%199==0 && i!=0)
+                Thread.sleep(240000);
         }
-        
-        JSONObject gameObj = new JSONObject();
-        gameObj.put("Games", gameArray);
         
         try (FileWriter file = new FileWriter("data/steamgamelistraw.json")) {
             file.write(gameObj.toString());
             System.out.println("Successfully Copied JSON Object to File...");
 	}
     }
+    
     public static void main(String[] args) throws IOException, InterruptedException{
         GameScraper gs = new GameScraper();
 
