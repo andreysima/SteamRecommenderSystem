@@ -19,7 +19,7 @@ import srecsys.model.Game;
 
 public class Games {
     public List<String> attributeList = new ArrayList<>();
-    public List<Game> gameList = new ArrayList<>();
+    public Map<String,Game> gameList = new HashMap<>();
     private Game g;
     
     public List<String> publisherList;
@@ -98,7 +98,7 @@ public class Games {
                 g.genres.add(game_genres);
             }
             
-            gameList.add(g);
+            gameList.put(g.appID, g);
             
             totalName = totalName.concat(cleanString(game_name)).concat(" ");
             totalDesc = totalDesc.concat(cleanString(game_detailed_description))

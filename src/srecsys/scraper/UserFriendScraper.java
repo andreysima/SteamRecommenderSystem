@@ -1,8 +1,9 @@
 package srecsys.scraper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ import srecsys.model.Friend;
  */
 public class UserFriendScraper {
    
-    private Set<Friend> friendlist;
+    private List<Friend> friendlist;
     private Friend f;
     
     public UserFriendScraper(){
@@ -22,7 +23,7 @@ public class UserFriendScraper {
     
     public void scrape(String steam64id) throws IOException{
         System.out.println("Scraping friendlist for user "+steam64id);
-        friendlist = new HashSet<Friend>();
+        friendlist = new ArrayList<>();
         
         String uri = String.format(
             "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/"+
@@ -41,7 +42,7 @@ public class UserFriendScraper {
         }
     }
     
-    public Set<Friend> getFriendlist(){
-        return Collections.unmodifiableSet(friendlist);
+    public List<Friend> getFriendlist(){
+        return Collections.unmodifiableList(friendlist);
     }
 }

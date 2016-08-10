@@ -51,7 +51,7 @@ public class UserScrapeTool {
         }
     }
     
-    private static void scrapeFriends(String inFile, Set<Friend> friendlist) throws IOException, Exception{
+    private static void scrapeFriends(String inFile, List<Friend> friendlist) throws IOException, Exception{
         UserFriendScraper ufs = new UserFriendScraper();
         
         List<String> idLines = FileUtils.readLines(new File(inFile));

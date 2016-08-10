@@ -128,8 +128,6 @@ public class Game {
     public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
         List<String> texts = new LinkedList<>(Arrays.asList(cleanString(text).split("\\s+")));
         
-        
-        
         for(int i = texts.size()-1; i >= 0; i--){
             for(int j = 0; j < stopWords.size(); j++){
                 if(stopWords.get(j).contains(texts.get(i))){
