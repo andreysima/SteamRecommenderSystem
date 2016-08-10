@@ -1,30 +1,153 @@
 package srecsys.recommendation;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.Map;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import srecsys.model.Game;
 
 public class Games {
-    public List<String> attributeList;
-    public List<Game> gameList;
+    public List<String> attributeList = new ArrayList<>();
+    public List<Game> gameList = new ArrayList<>();
+    private Game g;
+    
     public List<String> publisherList;
     public List<String> developerList;
+    public List<String> game_name_List = new ArrayList<>();
+    public List<String> game_detailed_description_List = new ArrayList<>();
+    public List<String> game_about_the_game_List = new ArrayList<>();
     
-    public static void JSONReader() throws IOException, ParseException{
+    public String totalName = "";
+    public String totalDesc = "";
+    public String totalTerm = "";
+    public String totalDev = "";
+    public String totalPub = "";
+    
+    public List<String> stopWords = new ArrayList();
+    
+    public void JSONReader() throws IOException, ParseException{
         JSONParser parser = new JSONParser();
         
         Object obj = parser.parse(new FileReader("data/steamgamelistraw.json"));
-        JSONArray games_array = (JSONArray) obj;
+        JSONObject jsonobj = (JSONObject) obj;
         
-        for(int i = 0; i < games_array.length(); i++){
-            String game_name = games_array.getJSONObject(i).getString("Name");
-            JSONArray publishers_array = games_array.getJSONArray(i);
+        JSONArray games_array = (JSONArray) jsonobj.get("Games");
+        Iterator i = games_array.iterator();
+        
+        while(i.hasNext()){
+            
+            g = new Game();
+            
+            JSONObject game = (JSONObject) i.next();
+            
+            g.setAppID((String) game.get("appID"));
+            
+            String game_name = (String) game.get("Name");
+            g.setName(game_name);
+            
+            g.addTerm(game_name);
+            
+            String game_detailed_description = (String) game.get("Detailed Description");
+            g.setDetailed_description(game_detailed_description);
+            
+            g.addTerm(game_detailed_description);
+            
+            String game_about_the_game = (String) game.get("About the Game");
+            g.setAbout_the_game(game_about_the_game);
+            
+            g.addTerm(game_about_the_game);
+            
+            JSONArray dev_array = (JSONArray) game.get("Developers");
+            Iterator i_dev = dev_array.iterator();
+            String game_developers;
+            while(i_dev.hasNext()){
+                game_developers = (String) i_dev.next();
+                g.developers.add(game_developers);
+                g.addTerm(game_developers);
+                
+                totalDev = totalDev.concat(cleanString(game_developers).concat(" "));
+            }
+            
+            JSONArray pub_array = (JSONArray) game.get("Publishers");
+            Iterator i_pub = pub_array.iterator();
+            String game_publishers;
+            while(i_pub.hasNext()){
+                game_publishers = (String) i_pub.next();
+                g.publishers.add(game_publishers);
+                g.addTerm(game_publishers);
+                
+                totalPub = totalPub.concat(cleanString(game_publishers).concat(" "));
+            }
+            
+            JSONArray genre_array = (JSONArray) game.get("Genres");
+            Iterator i_genre = genre_array.iterator();
+            String game_genres;
+            while(i_genre.hasNext()){
+                game_genres = (String) i_genre.next();
+                g.genres.add(game_genres);
+            }
+            
+            gameList.add(g);
+            
+            totalName = totalName.concat(cleanString(game_name)).concat(" ");
+            totalDesc = totalDesc.concat(cleanString(game_detailed_description))
+                                 .concat(" ")
+                                 .concat(cleanString(game_about_the_game))
+                                 .concat(" ");
+        }
+        totalTerm = totalName + totalDesc + totalDev + totalPub;
+        String[] splittedName = totalTerm.split("\\s+");
+        Arrays.sort(splittedName);
+        attributeList = new LinkedList<>(Arrays.asList(splittedName));
+        
+//        removeStopWords();
+        
+    }
+    
+    public String cleanString(String text){
+        String newtext = text.replaceAll("[\\d-:',.;(){}]", " ").toLowerCase();
+        
+        return newtext;
+    }
+    
+    public void removeStopWords() throws FileNotFoundException, IOException{
+        BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
+        String currentLine;
+        int size = attributeList.size();
+        int stopsize = 0;
+        
+        while((currentLine = br.readLine()) != null){
+            stopWords.add(currentLine);
+            stopsize++;
         }
         
+        System.out.println(size);
+        System.out.println(stopsize);
+        for(int i = size - 1; i >= 0; i--){
+            for(int j = 0; j < stopsize; j++){
+                if(stopWords.get(j).contains(attributeList.get(i))){
+                    System.out.println("removed "+ attributeList.remove(i));
+                }
+            }
+        }
+    }
+    
+    public static void main(String[] args) throws IOException, ParseException{
+        Games g = new Games();
+        
+        g.JSONReader();
+        
+        System.out.println(g.attributeList.toString());
     }
 }

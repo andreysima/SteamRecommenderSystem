@@ -13,7 +13,7 @@ import srecsys.model.Game;
  */
 public class UserGameScraper {
     
-    private Set<Game> games;
+    public Set<Game> games;
     private Game g;
     
     public UserGameScraper(){
