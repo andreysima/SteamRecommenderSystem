@@ -132,11 +132,4 @@ public class Games {
         }
     }
     
-    public static void main(String[] args) throws IOException, ParseException{
-        Games g = new Games();
-        
-        g.loadTerms();
-        
-        System.out.println(g.attributeList.toString());
-    }
 }
