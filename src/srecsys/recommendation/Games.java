@@ -34,40 +34,34 @@ public class Games {
     public String totalDev = "";
     public String totalPub = "";
     
-    public List<String> stopWords = new ArrayList();
+    public List<String> stopWords = new ArrayList<>();
     
-    public void JSONReader() throws IOException, ParseException{
+    public void loadTerms() throws IOException, ParseException{
         JSONParser parser = new JSONParser();
         
         Object obj = parser.parse(new FileReader("data/steamgamelistraw.json"));
         JSONObject jsonobj = (JSONObject) obj;
-        
         JSONArray games_array = (JSONArray) jsonobj.get("Games");
         Iterator i = games_array.iterator();
         
         while(i.hasNext()){
-            
-            g = new Game();
-            
+            g = new Game();    
             JSONObject game = (JSONObject) i.next();
-            
+            // untuk appID
             g.setAppID((String) game.get("appID"));
-            
+            // untuk game_name
             String game_name = (String) game.get("Name");
-            g.setName(game_name);
-            
+            g.setName(game_name);            
             g.addTerm(game_name);
-            
+            // untuk detailed_description
             String game_detailed_description = (String) game.get("Detailed Description");
-            g.setDetailed_description(game_detailed_description);
-            
+            g.setDetailed_description(game_detailed_description);            
             g.addTerm(game_detailed_description);
-            
+            // untuk about_the_game
             String game_about_the_game = (String) game.get("About the Game");
-            g.setAbout_the_game(game_about_the_game);
-            
+            g.setAbout_the_game(game_about_the_game);            
             g.addTerm(game_about_the_game);
-            
+            // untuk game_developers
             JSONArray dev_array = (JSONArray) game.get("Developers");
             Iterator i_dev = dev_array.iterator();
             String game_developers;
@@ -75,10 +69,9 @@ public class Games {
                 game_developers = (String) i_dev.next();
                 g.developers.add(game_developers);
                 g.addTerm(game_developers);
-                
                 totalDev = totalDev.concat(cleanString(game_developers).concat(" "));
             }
-            
+            // untuk game_publishers
             JSONArray pub_array = (JSONArray) game.get("Publishers");
             Iterator i_pub = pub_array.iterator();
             String game_publishers;
@@ -86,10 +79,9 @@ public class Games {
                 game_publishers = (String) i_pub.next();
                 g.publishers.add(game_publishers);
                 g.addTerm(game_publishers);
-                
                 totalPub = totalPub.concat(cleanString(game_publishers).concat(" "));
             }
-            
+            // untuk gane_genre
             JSONArray genre_array = (JSONArray) game.get("Genres");
             Iterator i_genre = genre_array.iterator();
             String game_genres;
@@ -112,11 +104,10 @@ public class Games {
         attributeList = new LinkedList<>(Arrays.asList(splittedName));
         
 //        removeStopWords();
-        
     }
     
     public String cleanString(String text){
-        String newtext = text.replaceAll("[\\d-:',.;(){}]", " ").toLowerCase();
+        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+|\\w*\\d\\w*|[\\\"\\'\\.\\,]+|", "").toLowerCase();
         
         return newtext;
     }
@@ -125,19 +116,17 @@ public class Games {
         BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
         String currentLine;
         int size = attributeList.size();
-        int stopsize = 0;
         
         while((currentLine = br.readLine()) != null){
             stopWords.add(currentLine);
-            stopsize++;
         }
         
-        System.out.println(size);
-        System.out.println(stopsize);
+        System.out.println(attributeList.size());
+        
         for(int i = size - 1; i >= 0; i--){
-            for(int j = 0; j < stopsize; j++){
+            for(int j = 0; j < stopWords.size(); j++){
                 if(stopWords.get(j).contains(attributeList.get(i))){
-                    System.out.println("removed "+ attributeList.remove(i));
+                    attributeList.remove(i);
                 }
             }
         }
@@ -146,7 +135,7 @@ public class Games {
     public static void main(String[] args) throws IOException, ParseException{
         Games g = new Games();
         
-        g.JSONReader();
+        g.loadTerms();
         
         System.out.println(g.attributeList.toString());
     }

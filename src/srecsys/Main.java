@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -32,29 +33,15 @@ public class Main {
         
         //mengambil game yang dimiliki user
         ugs.scrape("76561198115471724");
-        System.out.println(ugs.games.get(0).appID + ugs.games.get(0).getName());
+        System.out.println(ugs.games.get(0).appID + " " + ugs.games.get(0).getName());
         System.out.println(ugs.games.get(0).game_terms.toString());
-        
-        // ini punya user
-//        ugs.games;
-        
+                
         //mengambil game yang ada di dalam Steam
-        steamgames.JSONReader();
-        
-        // ini punya steam semua
-//        steamgames.gameList;
-
-//        for(String i : steamgames.gameList.keySet()){
-//            for(int j = 0; j < ugs.games.size(); j++){
-//                if(ugs.games.get(j).getAppID().equals(i)){
-//                    steamgames.gameList.remove(i);
-//                }
-//            }
-//        }
-        
+        steamgames.loadTerms();
+        removeOwnedGames();
         saveTermsToFile("data/terms.txt");
         loadInvertedFile("data/terms.txt");
-        System.out.println(invertedTerms.toString());
+//        System.out.println(invertedTerms.toString());
         computeSimilarity();
         printDocResult();
 //        double sum = 0.0;
@@ -70,7 +57,7 @@ public class Main {
 
     }
     
-    public static void saveTermsToFile(String ifLocation) {
+    public static void saveTermsToFile(String ifLocation){
         try {
             Writer output = new BufferedWriter(new FileWriter(new File(ifLocation)));
 
@@ -89,7 +76,7 @@ public class Main {
         }
     }
     
-    public static void loadInvertedFile(String ifLocation) {
+    public static void loadInvertedFile(String ifLocation){
         Scanner input;
         String[] temp;
         invertedTerms = new HashMap<>();
@@ -113,7 +100,7 @@ public class Main {
         }
     }
     
-    public static void computeSimilarity() {
+    public static void computeSimilarity(){
         double queryWeight;
         double totalWeight = 0;
         String[] temp;
@@ -156,7 +143,7 @@ public class Main {
         }
     }
     
-    public static void printDocResult() {
+    public static void printDocResult(){
         if (rankedDocuments!=null) {
             for (Map.Entry<Double, Set<String[]>> rankedDocument : rankedDocuments.entrySet()) {
                 for (String[] docs : rankedDocument.getValue()) {
@@ -166,5 +153,19 @@ public class Main {
                 }
             }
         }
+    }
+    
+    public static void removeOwnedGames(){
+        Iterator<String> iter = steamgames.gameList.keySet().iterator();   
+        
+        while(iter.hasNext()){
+            String str = iter.next();
+            
+            for(int j = 0; j < ugs.games.size(); j++){
+                if(ugs.games.get(j).getAppID().equals(str)){
+                    iter.remove();
+                }
+            }
+        }    
     }
 }

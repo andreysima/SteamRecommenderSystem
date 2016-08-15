@@ -120,7 +120,7 @@ public class Game {
     }
     
     public String cleanString(String text){
-        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+", "").toLowerCase();
+        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+|\\w*\\d\\w*|[\\\"\\'\\.\\,]+|", "").toLowerCase();
         
         return newtext;
     }

@@ -206,7 +206,7 @@ public class GameScraper {
         JSONArray genresArray = new JSONArray();
         JSONObject gameObj = new JSONObject();
         
-        for(int i = 0; i < applist.size()/4; i++){
+        for(int i = 0; i < applist.size(); i++){
             int id = filterGames(i);
             if(id > 0){
                 game = new JSONObject();
