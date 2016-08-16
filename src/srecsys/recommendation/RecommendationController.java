@@ -140,4 +140,16 @@ public class RecommendationController {
             }
         }    
     }
+    
+    public Set<String> getOwnedGenres(UserGameScraper ugs){
+        Set<String> genres = new HashSet<>();
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            for(int j = 0; j < ugs.games.get(i).genres.size(); j++){
+                genres.add(ugs.games.get(i).genres.get(j));
+            }
+        }
+        
+        return genres;
+    }
 }
