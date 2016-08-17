@@ -23,6 +23,8 @@ public class Main {
     private static Map<String, Map<String, Double>> invertedTerms;
     private static SortedMap<Double, Set<String[]>> rankedDocuments;
     private static Set<String> ownedGenre;
+    private static Map<String, Double> rankedGames;
+    private static Map<String, Double> sortedGames;
     
     public static void main(String[] args) throws Exception{
         
@@ -42,24 +44,31 @@ public class Main {
         ufs.scrape(steam64id);
         ugs.scrape(steam64id);
         us.scrape(steam64id);
-        
-        System.out.println(ugs.games.get(0).appID + " " + ugs.games.get(0).getName());
-        System.out.println(ugs.games.get(0).game_terms.toString());
                 
         //mengambil game yang ada di dalam Steam
         steamgames.loadTerms();
         RC.removeOwnedGames(steamgames, ugs);
         ownedGenre = RC.getOwnedGenres(ugs);
+        RC.removeNonGenreGames(ownedGenre, steamgames);
         
         System.out.println("Owned game genre of "+us.personaname);
         System.out.println(ownedGenre.toString());
         System.out.println("");
         
         RC.saveTermsToFile("data/terms.txt", steamgames);
-        RC.loadInvertedFile("data/terms.txt", invertedTerms);
+        invertedTerms = RC.loadInvertedFile("data/terms.txt");
+        
 //        System.out.println(invertedTerms.toString());
-        RC.computeSimilarity(rankedDocuments, steamgames, invertedTerms, ugs);
-        RC.printDocResult(rankedDocuments);
+//        RC.computeSimilarity(rankedDocuments, steamgames, invertedTerms, ugs);
+        rankedGames = RC.computeSimilarity(ugs, invertedTerms);
+        sortedGames = RC.sortMapByValues(rankedGames);
+        
+        System.out.println("nih nih");
+//        System.out.println(RC.createQueryFromGames(ugs).toString());
+        System.out.println(sortedGames.toString());
+        
+        
+//        RC.printDocResult(rankedDocuments);
 //        double sum = 0.0;
 //        for(String usergame : ugs.games.get(0).game_terms.keySet()){
 //      1      if(steamgames.gameList.get(0).game_terms.get(usergame) != null){

@@ -57,6 +57,18 @@ public class UserGameScraper {
             if(gameresponse.getBoolean("success")){
             
                 JSONObject gamedata = gameresponse.getJSONObject("data");
+                if(gamedata.has("about_the_game")){
+                    g.setAbout_the_game(gamedata.getString("about_the_game"));
+                }
+                else{
+                    g.setAbout_the_game("");
+                }
+                if(gamedata.has("detailed_description")){
+                    g.setDetailed_description(gamedata.getString("detailed_description"));
+                }
+                else{
+                    g.setDetailed_description("");
+                }                
                 if(gamedata.has("developers")){
                     JSONArray arr_developers = gamedata.getJSONArray("developers");
 

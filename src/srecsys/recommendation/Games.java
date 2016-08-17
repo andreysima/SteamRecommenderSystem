@@ -51,7 +51,7 @@ public class Games {
             g.setAppID((String) game.get("appID"));
             // untuk game_name
             String game_name = (String) game.get("Name");
-            g.setName(game_name);            
+            g.setName(game_name);        
             g.addTerm(game_name);
             // untuk detailed_description
             String game_detailed_description = (String) game.get("Detailed Description");

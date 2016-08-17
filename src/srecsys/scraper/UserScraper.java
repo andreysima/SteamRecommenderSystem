@@ -19,8 +19,8 @@ public class UserScraper {
     
     public User scrape(String steam64id) throws IOException, Exception{
         
-        UserGameScraper ugs = new UserGameScraper();
-        UserFriendScraper ufs = new UserFriendScraper();
+//        UserGameScraper ugs = new UserGameScraper();
+//        UserFriendScraper ufs = new UserFriendScraper();
         
         String uri = String.format(
             "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"+
@@ -37,12 +37,12 @@ public class UserScraper {
         }
         
         User user = new User(steam64id, personaname);
-        
-        ugs.scrape(steam64id);
-        ufs.scrape(steam64id);
-        
-        user.games = ugs.getGames();
-        user.friends = ufs.getFriendlist();
+
+//        ugs.scrape(steam64id);
+//        ufs.scrape(steam64id);
+//        
+//        user.games = ugs.getGames();
+//        user.friends = ufs.getFriendlist();
         
         return user;
     }
