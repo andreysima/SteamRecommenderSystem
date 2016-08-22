@@ -64,6 +64,12 @@ public class Main {
         RC.computeIDF();
         RC.computeTFIDF();
         gameResults = RC.computeScore(steamgames, ugs);
+        
+        rankedGames = RC.computeFinalScore(gameResults);
+        sortedGames = RC.sortMapByValues(rankedGames);
+        
+        System.out.println("hasilnya adalah");
+        System.out.println(sortedGames.toString());
 //        System.out.println(gameResults.toString());
 //        rankedGames = RC.computeScore(steamgames, ugs);
 //        sortedGames = RC.sortMapByValues(rankedGames);

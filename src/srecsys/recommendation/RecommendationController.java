@@ -432,18 +432,15 @@ public class RecommendationController {
 //        System.out.println(appIDandTerms);
     }
     
-    public void loadOwnedGames(UserGameScraper ugs){
-        for(int i = 0; i < ugs.games.size(); i++){
-            ownedGames.add(ugs.games.get(i).appID);
-        }
-    }
-    
     public double computeCosineSimilarity(String appID1, String appID2){
         double dotProduct = dotProductTwoVectors(appID1, appID2);
         double length1 = countVectorLength(appID1);
         double length2 = countVectorLength(appID2);
         
         double cosine = dotProduct / (length1 * length2);
+        
+        if(length1 * length2 == 0.0)
+            cosine = 0.0;
         
         return cosine;
     }
@@ -469,13 +466,10 @@ public class RecommendationController {
         for(Map.Entry <String, Map<String, Double>> entryGame: weightedTerm.entrySet()){
             Map<String, Double> tempValue = entryGame.getValue();
             if(tempValue.keySet().contains(appID)){
-//                System.out.println("lalalala "+tempValue.keySet()+ " " + appID);
-//                System.out.println("");
                 tempLength += tempValue.get(appID)*tempValue.get(appID);
             }else{
                 tempLength += 0.0;
             }
-//            System.out.println("tempLength " + appID + " : "+tempLength);
         }
         
         return Math.sqrt(tempLength);
@@ -484,21 +478,36 @@ public class RecommendationController {
     public Map<String, Map<String, Double>> computeScore(Games steamgames, UserGameScraper ugs){
         
         double tempScore;
-        Map<String, Double> gameScore = new HashMap<>();
+        Map<String, Double> gameScore;
         Map<String, Map<String, Double>> gameScores = new HashMap<>();
                     
         for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+            gameScore = new HashMap<>();
             for(int i = 0; i < ugs.games.size(); i++){
                 tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
-                System.out.println("isi tempscore :"+tempScore);
-                
+//                System.out.println("isi tempscore :"+steam.getKey()+" dan "+ugs.games.get(i).appID+" = "+tempScore);
                 gameScore.put(ugs.games.get(i).appID, tempScore);
-                gameScores.put(steam.getKey(), gameScore);
             }
+            gameScores.put(steam.getKey(), gameScore);
         }
         
-        System.out.println(gameScores.toString());
+//        System.out.println(gameScores.toString());
         return gameScores;
+    }
+    
+    public Map<String, Double> computeFinalScore(Map<String, Map<String,Double>> gameScores){
+        
+        Map<String, Double> finalScore = new HashMap<>();
+        double score = 0.0;
+        
+        for(Map.Entry <String, Map<String, Double>> gameScore : gameScores.entrySet()){
+            for(Map.Entry <String, Double> tempScore : gameScore.getValue().entrySet()){
+                score += tempScore.getValue();
+            }
+            finalScore.put(gameScore.getKey(), score);
+        }
+        
+        return finalScore;
     }
     
     public <K, V extends Comparable< ? super V>> Map<K, V>
