@@ -89,7 +89,7 @@ public class UserScrapeTool {
     
     private static void summarize(Set<User> users, Set<Game> games){
         
-        Map<Game, Integer> top = UserAnalyzer.deriveTopGames(users);
+//        Map<Game, Integer> top = UserAnalyzer.deriveTopGames(users);
 //        ValueComparator vc = new ValueComparator(top);
 //        TreeMap<Game, Integer> sorted_map = new TreeMap<Game, Integer>(vc);
 //        

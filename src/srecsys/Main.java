@@ -25,6 +25,8 @@ public class Main {
     private static Set<String> ownedGenre;
     private static Map<String, Double> rankedGames;
     private static Map<String, Double> sortedGames;
+    private static Map<String, Map<String,Double>> gameResults;
+    
     
     public static void main(String[] args) throws Exception{
         
@@ -37,6 +39,7 @@ public class Main {
         invertedTerms = new HashMap<>();
         rankedDocuments = new TreeMap<>(Collections.reverseOrder());
         ownedGenre = new HashSet<>();
+        gameResults = new HashMap<>();
         
         String steam64id = "76561198115471724";
         
@@ -57,15 +60,25 @@ public class Main {
         
         RC.saveTermsToFile("data/terms.txt", steamgames);
         invertedTerms = RC.loadInvertedFile("data/terms.txt");
+        RC.loadTerms("data/terms.txt");
+        RC.computeIDF();
+        RC.computeTFIDF();
+        gameResults = RC.computeScore(steamgames, ugs);
+//        System.out.println(gameResults.toString());
+//        rankedGames = RC.computeScore(steamgames, ugs);
+//        sortedGames = RC.sortMapByValues(rankedGames);
+//        
+//        System.out.println(sortedGames.toString());
+        
+//        System.out.println(RC.computeScore(steamgames, ugs).toString());
         
 //        System.out.println(invertedTerms.toString());
 //        RC.computeSimilarity(rankedDocuments, steamgames, invertedTerms, ugs);
-        rankedGames = RC.computeSimilarity(ugs, invertedTerms);
-        sortedGames = RC.sortMapByValues(rankedGames);
+//        rankedGames = RC.computeSimilarity(ugs, invertedTerms);
+//        sortedGames = RC.sortMapByValues(rankedGames);
         
-        System.out.println("nih nih");
 //        System.out.println(RC.createQueryFromGames(ugs).toString());
-        System.out.println(sortedGames.toString());
+//        System.out.println(sortedGames.toString());
         
         
 //        RC.printDocResult(rankedDocuments);

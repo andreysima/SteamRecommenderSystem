@@ -19,7 +19,7 @@ import srecsys.model.Game;
 
 public class Games {
     public List<String> attributeList = new ArrayList<>();
-    public Map<String,Game> gameList = new HashMap<>();
+    public Map<String, Game> gameList = new HashMap<>();
     private Game g;
     
     public List<String> publisherList;

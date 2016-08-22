@@ -33,7 +33,10 @@ public class RecommendationController {
     
     private List<String> stopWords = new ArrayList<>();
     private final int game_count = 1529;
-    
+    private List<String> allTerms = new ArrayList<>();
+    private Map<String, List<String>> loadedTerms = new HashMap<>();
+    private List<String> ownedGames = new ArrayList<>();
+    private Map<String, Map<String, Double>> weightedTerm = new HashMap<>();
     
     public RecommendationController(){
         try {
@@ -58,7 +61,7 @@ public class RecommendationController {
                 Map<String, Double> invertedTerms = new TreeMap<>(sortedGames.get(s).game_terms);
 
                 for (String key : invertedTerms.keySet()) {
-                    output.write(key.toLowerCase() + '\t' + s + '\t' + (1+Math.log(invertedTerms.get(key))) + "\n");
+                    output.write(key.toLowerCase() + ' ' + s + ' ' + (1+Math.log10(invertedTerms.get(key))) + "\n");
                 }
             }
 
@@ -77,7 +80,7 @@ public class RecommendationController {
         try {
             input = new Scanner(new FileReader(ifLocation));
             while (input.hasNextLine()){
-                temp = input.nextLine().split("\t");
+                temp = input.nextLine().split(" ");
 //                System.out.println("temp " + temp[0]);
                 if (invertedTerms.containsKey(temp[0])) {
                     invTermTemp = invertedTerms.get(temp[0]);
@@ -102,7 +105,7 @@ public class RecommendationController {
 //            Games steamgames, Map<String, Map<String, Double>> invertedTerms,
 //            UserGameScraper ugs) throws IOException{
 //        
-////        double queryWeight;
+//        double queryWeight;
 //        double totalWeight = 0;
 //        String[] temp;
 //        Map<String, Double> invTemp;
@@ -230,7 +233,7 @@ public class RecommendationController {
         }
         
         for(int i = 0; i < terms.length; i++){
-            termWeight.put(terms[i], 1 + Math.log(termWeight.get(terms[i])));
+            termWeight.put(terms[i], 1 + Math.log10(termWeight.get(terms[i])));
         }
         
         return termWeight;
@@ -256,7 +259,7 @@ public class RecommendationController {
         return newtext;
     }
     
-    public Map<String, Double> computeSimilarity(UserGameScraper ugs,
+    public Map<String, Double> computeSimilarity2(UserGameScraper ugs,
             Map<String, Map<String, Double>> invertedTerms) throws IOException{
         
         Map<String, Double> termTF = createQueryFromGames(ugs);
@@ -288,7 +291,7 @@ public class RecommendationController {
         }
         
         for(Map.Entry<String, Double> simDoc : weightedGame.entrySet()){
-            double temp = Math.sqrt(tempQ.get(simDoc.getKey()) * Math.sqrt(tempDoc.get(simDoc.getKey()))) * ugs.games.size();
+            double temp = Math.sqrt(tempQ.get(simDoc.getKey()) * Math.sqrt(tempDoc.get(simDoc.getKey()))) /* * ugs.games.size()*/;
             
             if(temp != 0){
                 weightedGame.put(simDoc.getKey(), simDoc.getValue()/temp);
@@ -310,7 +313,7 @@ public class RecommendationController {
         for(Map.Entry<String, Double> queryTerm : gamesCollection.entrySet()){
             if(invertedTerms.containsKey(queryTerm.getKey())){
                 int count = invertedTerms.get(queryTerm.getKey()).size();
-                IDFTerm.put(queryTerm.getKey(), (1 + Math.log(game_count/count)));
+                IDFTerm.put(queryTerm.getKey(), (1 + Math.log10(game_count/count)));
             }
             else{
                 IDFTerm.put(queryTerm.getKey(), 0.0);
@@ -318,6 +321,193 @@ public class RecommendationController {
         }
         
         return IDFTerm;
+    }
+    
+    public Map<String, Double> computeIDF(){
+        Map<String, Double> termIDF = new HashMap<>();
+        
+        for(int i = 0; i < allTerms.size(); i++){
+            int counter = 0;
+            for(Map.Entry<String, List<String>> tempTerms : loadedTerms.entrySet()){
+                if(tempTerms.getValue().contains(allTerms.get(i))){
+                    counter++;
+                }
+            }
+            termIDF.put(allTerms.get(i), 1 + Math.log10(loadedTerms.size()/counter));
+        }
+        
+//        System.out.println("IDFLIST " + termIDF.toString());
+        return termIDF;
+    }
+    
+    public void computeTFIDF(){
+        Map<String, Double> IDFList = new HashMap<>();
+        IDFList = computeIDF();
+        double IDF = 0.0;
+        double TF = 0.0;
+        
+        weightedTerm = loadInvertedFile("data/terms.txt");
+        
+        for(Map.Entry<String, Map<String, Double>> termEntry : weightedTerm.entrySet()){
+            for(Map.Entry<String, Double> termWeight : weightedTerm.get(termEntry.getKey()).entrySet()){
+                IDF = IDFList.get(termEntry.getKey());
+                TF = termWeight.getValue();
+                termWeight.setValue(TF * IDF);
+            }
+        }
+        
+//        System.out.println("TFIDF "+weightedTerm.toString());
+    }
+    
+    public void loadTerms(String iflocation){
+        
+        BufferedReader br = null;
+        boolean gotTerm;
+        boolean gotAppID;
+        Map<String, List<String>> appIDandTerms = new HashMap<>();
+        List<String> terms = new ArrayList<>();
+        String tempTerms = "";
+        String tempAppID = "";
+        
+        try {
+
+            String sCurrentLine;
+            
+            br = new BufferedReader(new FileReader("data/terms.txt"));
+
+            String pastAppID = "";
+            while ((sCurrentLine = br.readLine()) != null) {
+                tempTerms = "";
+                tempAppID = "";
+                gotTerm = false;
+                gotAppID = false;
+         
+                for(int i = 0; i < sCurrentLine.length(); i++){
+                    
+                    if(sCurrentLine.charAt(i) != ' ' && !gotTerm && !gotAppID){
+                        tempTerms += sCurrentLine.charAt(i);
+                    }
+                    
+                    if(sCurrentLine.charAt(i) == ' ' && !gotTerm){
+                        gotTerm = true;
+                        terms.add(tempTerms);
+                        if(!allTerms.contains(tempTerms)){
+                            allTerms.add(tempTerms);
+                        }
+                    }
+                    
+                    if(sCurrentLine.charAt(i) != ' ' && gotTerm && !gotAppID){
+                        tempAppID += sCurrentLine.charAt(i);
+                    }
+                    
+                    if(sCurrentLine.charAt(i) == ' ' && !tempAppID.equals(" ")){
+                        gotAppID = true;
+                    }
+                }
+                
+                if(!pastAppID.equals(tempAppID) && !pastAppID.equals(" ")){
+                    terms.remove(terms.size()-1);
+                    appIDandTerms.put(pastAppID, terms);
+                    terms = new ArrayList<>();
+                    terms.add(tempTerms);
+                    pastAppID = tempAppID;
+                }
+                if(pastAppID.equals(" ")){
+                    pastAppID = tempAppID;
+                }
+            }
+            appIDandTerms.put(tempAppID, terms);
+        } catch (IOException e) {
+                e.printStackTrace();
+        } finally {
+                try {
+                        if (br != null)br.close();
+                } catch (IOException ex) {
+                        ex.printStackTrace();
+                }
+        }
+        
+        loadedTerms = appIDandTerms;
+        
+//        System.out.println(appIDandTerms);
+    }
+    
+    public void loadOwnedGames(UserGameScraper ugs){
+        for(int i = 0; i < ugs.games.size(); i++){
+            ownedGames.add(ugs.games.get(i).appID);
+        }
+    }
+    
+    public double computeCosineSimilarity(String appID1, String appID2){
+        double dotProduct = dotProductTwoVectors(appID1, appID2);
+        double length1 = countVectorLength(appID1);
+        double length2 = countVectorLength(appID2);
+        
+        double cosine = dotProduct / (length1 * length2);
+        
+        return cosine;
+    }
+    
+    public double dotProductTwoVectors (String appID1, String appID2){
+        double tempSum = 0.0;
+        
+        for(Map.Entry <String, Map<String, Double>> entryGame: weightedTerm.entrySet()){
+            Map<String, Double> tempValue = entryGame.getValue();
+            if(tempValue.keySet().contains(appID1) && tempValue.keySet().contains(appID2)){
+                double tempMultiplication = tempValue.get(appID1) * tempValue.get(appID2);
+                tempSum += tempMultiplication;
+            }
+        }
+        
+        return tempSum;
+    }
+    
+    public double countVectorLength (String appID){
+
+        double tempLength = 0.0;
+        
+        for(Map.Entry <String, Map<String, Double>> entryGame: weightedTerm.entrySet()){
+            Map<String, Double> tempValue = entryGame.getValue();
+            if(tempValue.keySet().contains(appID)){
+//                System.out.println("lalalala "+tempValue.keySet()+ " " + appID);
+//                System.out.println("");
+                tempLength += tempValue.get(appID)*tempValue.get(appID);
+            }else{
+                tempLength += 0.0;
+            }
+//            System.out.println("tempLength " + appID + " : "+tempLength);
+        }
+        
+        return Math.sqrt(tempLength);
+    }
+    
+    public Map<String, Map<String, Double>> computeScore(Games steamgames, UserGameScraper ugs){
+        
+        double tempScore;
+        Map<String, Double> gameScore = new HashMap<>();
+        Map<String, Map<String, Double>> gameScores = new HashMap<>();
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+                if(steam.getKey().equals(ugs.games.get(i).appID)){
+                    tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
+                    System.out.println("isi tempscore :"+tempScore);
+                    gameScore.put(ugs.games.get(i).appID, tempScore);
+                    gameScores.put(steam.getKey(), gameScore);
+                }
+                else{
+                    gameScore.put(ugs.games.get(i).appID, 0.0);
+                    gameScores.put(steam.getKey(), gameScore);
+//                    System.out.println("masuk sini?");
+                }
+                System.out.println("steam key: " +steam.getKey());
+                System.out.println("size gamelist :"+ steamgames.gameList.size());
+                System.out.println("appID " + ugs.games.get(i).appID);
+            }
+        }
+        
+        System.out.println(gameScores.toString());
+        return gameScores;
     }
     
     public <K, V extends Comparable< ? super V>> Map<K, V>
