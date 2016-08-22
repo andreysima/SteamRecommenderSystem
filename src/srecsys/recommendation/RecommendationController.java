@@ -486,23 +486,13 @@ public class RecommendationController {
         double tempScore;
         Map<String, Double> gameScore = new HashMap<>();
         Map<String, Map<String, Double>> gameScores = new HashMap<>();
-        
-        for(int i = 0; i < ugs.games.size(); i++){
-            for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
-                if(steam.getKey().equals(ugs.games.get(i).appID)){
-                    tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
-                    System.out.println("isi tempscore :"+tempScore);
-                    gameScore.put(ugs.games.get(i).appID, tempScore);
-                    gameScores.put(steam.getKey(), gameScore);
-                }
-                else{
-                    gameScore.put(ugs.games.get(i).appID, 0.0);
-                    gameScores.put(steam.getKey(), gameScore);
-//                    System.out.println("masuk sini?");
-                }
-                System.out.println("steam key: " +steam.getKey());
-                System.out.println("size gamelist :"+ steamgames.gameList.size());
-                System.out.println("appID " + ugs.games.get(i).appID);
+                    
+        for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+            for(int i = 0; i < ugs.games.size(); i++){
+                tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
+                System.out.println("isi tempscore :"+tempScore);
+                gameScore.put(ugs.games.get(i).appID, tempScore);
+                gameScores.put(steam.getKey(), gameScore);
             }
         }
         

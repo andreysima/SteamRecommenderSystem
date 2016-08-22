@@ -50,9 +50,9 @@ public class Main {
                 
         //mengambil game yang ada di dalam Steam
         steamgames.loadTerms();
-        RC.removeOwnedGames(steamgames, ugs);
+//        RC.removeOwnedGames(steamgames, ugs);
         ownedGenre = RC.getOwnedGenres(ugs);
-        RC.removeNonGenreGames(ownedGenre, steamgames);
+//        RC.removeNonGenreGames(ownedGenre, steamgames);
         
         System.out.println("Owned game genre of "+us.personaname);
         System.out.println(ownedGenre.toString());
