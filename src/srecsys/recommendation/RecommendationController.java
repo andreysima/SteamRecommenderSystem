@@ -491,6 +491,7 @@ public class RecommendationController {
             for(int i = 0; i < ugs.games.size(); i++){
                 tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
                 System.out.println("isi tempscore :"+tempScore);
+                
                 gameScore.put(ugs.games.get(i).appID, tempScore);
                 gameScores.put(steam.getKey(), gameScore);
             }
