@@ -63,8 +63,7 @@ public class Main {
         RC.loadTerms("data/terms.txt");
 //        
         System.out.println("loadedTerms: " + RC.loadedTerms.keySet());
-              
-////        
+            
 //        RC.computeIDF();
 //        RC.computeTFIDF();
         
