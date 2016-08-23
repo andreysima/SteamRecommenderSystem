@@ -34,7 +34,7 @@ public class RecommendationController {
     private List<String> stopWords = new ArrayList<>();
     private final int game_count = 1529;
     private List<String> allTerms = new ArrayList<>();
-    private Map<String, List<String>> loadedTerms = new HashMap<>();
+    public Map<String, List<String>> loadedTerms = new HashMap<>();
     private List<String> ownedGames = new ArrayList<>();
     private Map<String, Map<String, Double>> weightedTerm = new HashMap<>();
     
@@ -163,7 +163,7 @@ public class RecommendationController {
         }
     }
 
-    public void removeOwnedGames(Games steamgames, UserGameScraper ugs){
+    public void removeOwnedGames2(Games steamgames, UserGameScraper ugs){
         Iterator<String> iter = steamgames.gameList.keySet().iterator();   
         
         while(iter.hasNext()){
@@ -175,6 +175,18 @@ public class RecommendationController {
                 }
             }
         }    
+    }
+    
+    public void removeOwnedGames(Map<String, Double> result, UserGameScraper ugs){
+        
+        for(Iterator<Map.Entry<String,Double>> it = result.entrySet().iterator(); it.hasNext();){
+            Map.Entry<String, Double> entry = it.next();
+            for(int i = 0; i < ugs.games.size(); i++){            
+                if(entry.getKey().equals(ugs.games.get(i).getAppID())){
+                    it.remove();
+                }
+            }
+        }
     }
     
     public Set<String> getOwnedGenres(UserGameScraper ugs){
@@ -203,10 +215,6 @@ public class RecommendationController {
                 }
             }
         }
-    }
-    
-    public void getFriendGames(UserFriendScraper ufs){
-        // maunya return String(appID) dan Int(jumlah yang punya)
     }
     
     public Map<String, Double> createQueryFromGames(UserGameScraper ugs) throws IOException{
@@ -324,6 +332,8 @@ public class RecommendationController {
     }
     
     public Map<String, Double> computeIDF(){
+        System.out.println("LoadedTermsDiComputeIDF: " + loadedTerms.keySet().toString());
+        
         Map<String, Double> termIDF = new HashMap<>();
         
         for(int i = 0; i < allTerms.size(); i++){
@@ -377,6 +387,8 @@ public class RecommendationController {
 
             String pastAppID = "";
             while ((sCurrentLine = br.readLine()) != null) {
+                System.out.println("sCurrentLine: " + sCurrentLine);
+                
                 tempTerms = "";
                 tempAppID = "";
                 gotTerm = false;
@@ -400,21 +412,23 @@ public class RecommendationController {
                         tempAppID += sCurrentLine.charAt(i);
                     }
                     
-                    if(sCurrentLine.charAt(i) == ' ' && !tempAppID.equals(" ")){
+                    if(sCurrentLine.charAt(i) == ' ' && !tempAppID.equals("")){
                         gotAppID = true;
                     }
                 }
                 
-                if(!pastAppID.equals(tempAppID) && !pastAppID.equals(" ")){
+                if(!pastAppID.equals(tempAppID) && !pastAppID.equals("")){
                     terms.remove(terms.size()-1);
                     appIDandTerms.put(pastAppID, terms);
                     terms = new ArrayList<>();
                     terms.add(tempTerms);
                     pastAppID = tempAppID;
                 }
-                if(pastAppID.equals(" ")){
+                if(pastAppID.equals("")){
                     pastAppID = tempAppID;
                 }
+                
+                
             }
             appIDandTerms.put(tempAppID, terms);
         } catch (IOException e) {
@@ -428,8 +442,6 @@ public class RecommendationController {
         }
         
         loadedTerms = appIDandTerms;
-        
-//        System.out.println(appIDandTerms);
     }
     
     public double computeCosineSimilarity(String appID1, String appID2){
@@ -509,6 +521,94 @@ public class RecommendationController {
         
         return finalScore;
     }
+    
+    public Map<String, List<Game>> getFriendGames(UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws IOException, Exception{
+        // maunya return String(appID) dan Int(jumlah yang punya)
+        
+        Map<String, List<Game>> friendGames = new HashMap<>();
+        List<String> friendList = new ArrayList<>();        
+        ufs.scrape(steam64id);
+        friendList = ufs.friendlist;
+        
+        for(int i = 0; i < friendList.size(); i++){
+            ugs.scrape(friendList.get(i));
+            friendGames.put(steam64id, ugs.games);
+        }
+        
+        return friendGames;
+    }
+    
+    public Map<Game, Integer> getCommonGames(Map<String, List<Game>> friendGames){
+        
+        Map<Game, Integer> commonGames = new HashMap<>();
+        int tempSum = 0;
+        
+        for(Map.Entry<String, List<Game>> tempGames : friendGames.entrySet()){
+            for(int i = 0; i < tempGames.getValue().size(); i++){
+                if(!commonGames.containsKey(tempGames.getValue().get(i))){
+                    for(int j = 0; j < friendGames.size(); j++){
+                        if(tempGames.getValue().contains(tempGames.getValue().get(i))){
+                            tempSum += 1;
+                        }
+                    }
+                    commonGames.put(tempGames.getValue().get(i), tempSum);
+                }
+            }
+        }
+        
+        System.out.println(commonGames.toString());
+        
+        return commonGames;
+    }
+    
+    public double computeIrisan(String appID1, String appID2){
+     
+        
+        List<String> tempTermsAppID1 = loadedTerms.get(appID1);
+        List<String> tempTermsAppID2 = loadedTerms.get(appID2);
+                
+        double counterIrisan = 0.0;
+        
+        for (String s : tempTermsAppID1) {
+            if(tempTermsAppID2.contains(s)){
+                counterIrisan = counterIrisan + 1.0;
+            }
+        }
+//        double counterIrisan = 0.0;
+//
+//        for(String s: weightedTerm.keySet()){
+//            Map<String, Double> tempListAppID1 = new HashMap<>();
+//            Map<String, Double> tempListAppID2 = new HashMap<>();
+//            
+//            tempListAppID1 = weightedTerm.get(s);
+//            
+//            if(tempListAppID1.containsKey(appID1) && tempListAppID1.containsKey(appID2)){
+//                counterIrisan = counterIrisan + 1.0;
+//            }
+//        }
+        
+        return counterIrisan;
+    }
+    
+    public double computejumlahTerm (String appID){
+        List<String> tempTermsAppID = new ArrayList<>();
+        tempTermsAppID = loadedTerms.get(appID);
+        
+        return tempTermsAppID.size();
+    }
+    
+    public double countJaccardSimilarity (String appID1, String appID2){
+        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
+        double irisan = computeIrisan(appID1, appID2);
+        System.out.println("jumlah irisan: " + irisan);
+        
+        double jumlahAppID1 = computejumlahTerm(appID1);
+        
+        double jumlahAppID2 = computejumlahTerm(appID2);
+        
+        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
+    }
+    
     
     public <K, V extends Comparable< ? super V>> Map<K, V>
     sortMapByValues(final Map <K, V> mapToSort)

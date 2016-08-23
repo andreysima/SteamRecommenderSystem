@@ -61,15 +61,26 @@ public class Main {
         RC.saveTermsToFile("data/terms.txt", steamgames);
         invertedTerms = RC.loadInvertedFile("data/terms.txt");
         RC.loadTerms("data/terms.txt");
-        RC.computeIDF();
-        RC.computeTFIDF();
-        gameResults = RC.computeScore(steamgames, ugs);
+//        
+        System.out.println("loadedTerms: " + RC.loadedTerms.keySet());
+              
+////        
+//        RC.computeIDF();
+//        RC.computeTFIDF();
         
-        rankedGames = RC.computeFinalScore(gameResults);
-        sortedGames = RC.sortMapByValues(rankedGames);
+         //test Jaccard Similarity
+        System.out.println("Jaccard: " + RC.countJaccardSimilarity("570", "570"));
+//        
+//        gameResults = RC.computeScore(steamgames, ugs);
+//        rankedGames = RC.computeFinalScore(gameResults);
+//        RC.removeOwnedGames(rankedGames, ugs);
+//        sortedGames = RC.sortMapByValues(rankedGames);
+//        
+//        System.out.println("hasilnya adalah");
+//        System.out.println(sortedGames.toString());
+
+//        RC.getCommonGames(RC.getFriendGames(ufs, ugs, steam64id));
         
-        System.out.println("hasilnya adalah");
-        System.out.println(sortedGames.toString());
 //        System.out.println(gameResults.toString());
 //        rankedGames = RC.computeScore(steamgames, ugs);
 //        sortedGames = RC.sortMapByValues(rankedGames);

@@ -15,7 +15,7 @@ import srecsys.model.Friend;
  */
 public class UserFriendScraper {
    
-    private List<Friend> friendlist;
+    public List<String> friendlist;
     private Friend f;
     
     public UserFriendScraper(){
@@ -38,11 +38,11 @@ public class UserFriendScraper {
         for(int i = 0; i < arr_friends.length(); i++){
             f = new Friend();
             f.setSteam64id(arr_friends.getJSONObject(i).get("steamid").toString());
-            friendlist.add(f);
+            friendlist.add(f.steam64id);
         }
     }
     
-    public List<Friend> getFriendlist(){
+    public List<String> getFriendlist(){
         return Collections.unmodifiableList(friendlist);
     }
 }

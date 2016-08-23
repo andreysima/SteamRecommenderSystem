@@ -11,10 +11,8 @@ import java.util.Map;
 import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import static srecsys.Constants.FILE_SEP;
-import srecsys.model.Friend;
 import srecsys.model.Game;
 import srecsys.model.User;
-import srecsys.scraper.GameScraper;
 import srecsys.scraper.UserFriendScraper;
 import srecsys.scraper.UserScraper;
 import srecsys.serialize.DataSerializer;
@@ -51,7 +49,7 @@ public class UserScrapeTool {
         }
     }
     
-    private static void scrapeFriends(String inFile, List<Friend> friendlist) throws IOException, Exception{
+    private static void scrapeFriends(String inFile, List<String> friendlist) throws IOException, Exception{
         UserFriendScraper ufs = new UserFriendScraper();
         
         List<String> idLines = FileUtils.readLines(new File(inFile));
