@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject; 
+import org.jsoup.Jsoup;
 
 import srecsys.model.Game;
 
@@ -105,6 +106,96 @@ public class GameScraper {
         }
         return 0;
     }
+
+    // membuat file csv untuk semua game
+    public void createCSVFile(){
+        FileWriter fileWriter = null;
+        String fileName = System.getProperty("user.home")+"/steamgamelistraw.csv";
+        
+        try {
+            fileWriter = new FileWriter(fileName);
+            System.out.println("Creating CSV file....");
+            
+            //untuk header
+            fileWriter.append("game_id,game_name,game_developers,game_publishers,game_genres,game_descriptions");
+            fileWriter.append("\n");
+            for(int i = 0; i < applist.size(); i++){
+                int id = filterGames(i);
+                if(id > 0){
+                    //untuk game_id
+                    fileWriter.append(gamelist.get(id).getAppID());
+                    fileWriter.append(",");
+                    //untuk game_name
+                    String game_name = gamelist.get(id).getName().replaceAll("[\",]", "");
+                    fileWriter.append("\"");
+                    fileWriter.append(game_name);
+                    fileWriter.append("\"");
+                    fileWriter.append(",");
+                    //untuk game_developers
+                    String game_developer;
+                    fileWriter.append("\"");
+                    for(int j = 0; j < gamelist.get(id).developers.size()-1; j++){
+                        game_developer = gamelist.get(id).developers.get(j);
+                        fileWriter.append(game_developer);
+                        fileWriter.append(",");
+                    }
+                    game_developer = gamelist.get(id).developers.get(gamelist.get(id).developers.size()-1);
+                    fileWriter.append(game_developer);
+                    fileWriter.append("\"");
+                    fileWriter.append(",");
+                    //untuk game_publishers
+                    String game_publisher;
+                    fileWriter.append("\"");
+                    for(int j = 0; j < gamelist.get(id).publishers.size()-1; j++){
+                        game_publisher = gamelist.get(id).publishers.get(j);
+                        fileWriter.append(game_publisher);
+                        fileWriter.append(",");
+                    }
+                    game_publisher = gamelist.get(id).publishers.get(gamelist.get(id).publishers.size()-1);
+                    fileWriter.append(game_publisher);
+                    fileWriter.append("\"");
+                    fileWriter.append(",");            
+                    //untuk game_genre
+                    String game_genre;
+                    fileWriter.append("\"");
+                    for(int j = 0; j < gamelist.get(id).genres.size()-1; j++){
+                        game_genre = gamelist.get(id).genres.get(j);
+                        fileWriter.append(game_genre);
+                        fileWriter.append(",");
+                    }
+                    game_genre = gamelist.get(id).genres.get(gamelist.get(id).genres.size()-1);
+                    fileWriter.append(game_genre);
+                    fileWriter.append("\"");
+                    fileWriter.append(",");
+                    //untuk game_descriptions
+                    fileWriter.append("\"");
+                    String detailed_desc = gamelist.get(id).getDetailed_description().replaceAll("[\",]", "");
+                    fileWriter.append(Jsoup.parse(detailed_desc).text());
+                    fileWriter.append(" ");
+                    String about_game = gamelist.get(id).getAbout_the_game().replaceAll("[\",]", "");
+                    fileWriter.append(Jsoup.parse(about_game).text());
+                    fileWriter.append("\"");
+
+                    fileWriter.append("\n");
+                }
+                if(i%199==0 && i!=0)
+                    Thread.sleep(240000);
+            }
+            
+            System.out.println("CSV file created");
+        }catch (Exception e) {
+            System.out.println("Error in writing CSV");
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error while flushing/closing fileWriter !!!");
+                e.printStackTrace();
+            }
+        }
+    }
     
     // membuat file json untuk semua game
     public void createJSONFile() throws InterruptedException, IOException{
@@ -115,7 +206,7 @@ public class GameScraper {
         JSONArray genresArray = new JSONArray();
         JSONObject gameObj = new JSONObject();
         
-        for(int i = 0; i < applist.size(); i++){
+        for(int i = 0; i < applist.size()/2; i++){
             int id = filterGames(i);
             if(id > 0){
                 game = new JSONObject();

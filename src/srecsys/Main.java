@@ -47,10 +47,7 @@ public class Main {
         ufs.scrape(steam64id);
         ugs.scrape(steam64id);
         us.scrape(steam64id);
-        
-        System.out.println("removing game: " + ugs.games.get(0));
-        ugs.games.remove(0);
-        
+                
         //mengambil game yang ada di dalam Steam
         steamgames.loadTerms();
 //        RC.removeOwnedGames(steamgames, ugs);
@@ -64,42 +61,53 @@ public class Main {
         RC.saveTermsToFile("data/terms.txt", steamgames);
         invertedTerms = RC.loadInvertedFile("data/terms.txt");
         RC.loadTerms("data/terms.txt");
-
-////////////////////////////////////////////////////////////////////////////////
-// COSINE SIMILARITY////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+//        
+        System.out.println("loadedTerms: " + RC.loadedTerms.keySet());
+            
 //        RC.computeIDF();
-//        RC.computeTFIDF();              
-//        gameResults = RC.computeCosineScore(steamgames, ugs);
+//        RC.computeTFIDF();
+        
+         //test Jaccard Similarity
+        System.out.println("Jaccard: " + RC.countJaccardSimilarity("570", "570"));
+//        
+//        gameResults = RC.computeScore(steamgames, ugs);
 //        rankedGames = RC.computeFinalScore(gameResults);
 //        RC.removeOwnedGames(rankedGames, ugs);
-//        sortedGames = RC.sortMapByValues(rankedGames);        
+//        sortedGames = RC.sortMapByValues(rankedGames);
+//        
 //        System.out.println("hasilnya adalah");
 //        System.out.println(sortedGames.toString());
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// JACCARD SIMILARITY///////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////             
-        gameResults = RC.computeJaccardScore(steamgames, ugs);
-        rankedGames = RC.computeFinalScore(gameResults);
-//        RC.removeOwnedGames(rankedGames, ugs);
-        sortedGames = RC.sortMapByValues(rankedGames);        
-        System.out.println("hasilnya adalah");
-        System.out.println(sortedGames.toString());
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 
 //        RC.getCommonGames(RC.getFriendGames(ufs, ugs, steam64id));
-                
+        
+//        System.out.println(gameResults.toString());
+//        rankedGames = RC.computeScore(steamgames, ugs);
+//        sortedGames = RC.sortMapByValues(rankedGames);
+//        
+//        System.out.println(sortedGames.toString());
+        
 //        System.out.println(RC.computeScore(steamgames, ugs).toString());
         
 //        System.out.println(invertedTerms.toString());
 //        RC.computeSimilarity(rankedDocuments, steamgames, invertedTerms, ugs);
 //        rankedGames = RC.computeSimilarity(ugs, invertedTerms);
 //        sortedGames = RC.sortMapByValues(rankedGames);
+        
+//        System.out.println(RC.createQueryFromGames(ugs).toString());
+//        System.out.println(sortedGames.toString());
+        
+        
+//        RC.printDocResult(rankedDocuments);
+//        double sum = 0.0;
+//        for(String usergame : ugs.games.get(0).game_terms.keySet()){
+//      1      if(steamgames.gameList.get(0).game_terms.get(usergame) != null){
+//                sum += steamgames.gameList.get(0).game_terms.get(usergame) * ugs.games.get(0).game_terms.get(usergame);
+//            }
+//        }
+        
+//        for(int i = 0; i < steamgames.gameList.size(); i++){
+//            System.out.println(steamgames.gameList.get(i).game_terms.toString());
+//        } 
+
     }
 }
