@@ -28,11 +28,11 @@ import java.util.logging.Logger;
 import srecsys.model.Game;
 import srecsys.scraper.UserFriendScraper;
 import srecsys.scraper.UserGameScraper;
+import srecsys.stemmer.PorterStemmer;
 
 public class RecommendationController {
     
     private List<String> stopWords = new ArrayList<>();
-    private final int game_count = 1529;
     private List<String> allTerms = new ArrayList<>();
     public Map<String, List<String>> loadedTerms = new HashMap<>();
     private List<String> ownedGames = new ArrayList<>();
@@ -81,7 +81,6 @@ public class RecommendationController {
             input = new Scanner(new FileReader(ifLocation));
             while (input.hasNextLine()){
                 temp = input.nextLine().split(" ");
-//                System.out.println("temp " + temp[0]);
                 if (invertedTerms.containsKey(temp[0])) {
                     invTermTemp = invertedTerms.get(temp[0]);
                     invTermTemp.put(String.valueOf(temp[1]), Double.valueOf(temp[2]));
@@ -99,53 +98,7 @@ public class RecommendationController {
 //        System.out.println(invertedTerms.toString());
         
         return invertedTerms;
-    }    
-    
-//    public void computeSimilarity(SortedMap<Double, Set<String[]>> rankedDocuments,
-//            Games steamgames, Map<String, Map<String, Double>> invertedTerms,
-//            UserGameScraper ugs) throws IOException{
-//        
-//        double queryWeight;
-//        double totalWeight = 0;
-//        String[] temp;
-//        Map<String, Double> invTemp;
-//        Set<String[]> tempDoc;
-//
-//        for (Map.Entry<String, Game> game : steamgames.gameList.entrySet()) {
-//            for (String term : createQueryFromGames(ugs)) {
-//                if (invertedTerms.containsKey(term)) {
-//                    invTemp = invertedTerms.get(term);
-//                    if (invTemp.containsKey(game.getKey())) {
-//
-//                        totalWeight = invTemp.get(game.getKey()) + 1 * invTemp.get(game.getKey());
-//                    }
-//
-//                }
-//            }
-//
-//            temp = new String[6];
-//            temp[0] = String.valueOf(game.getValue().getName());
-//            // temp[2] for recall
-//            // temp[3] for precision
-//            temp[4] = String.valueOf(game.getKey());
-//            temp[5] = String.valueOf(totalWeight);
-//
-//            // nama game, ID, poin
-//            System.out.println(Arrays.toString(temp));
-//            if (Double.compare(totalWeight, 0.0) > 0) {
-//                if (!rankedDocuments.containsKey(totalWeight)) {
-//                    tempDoc = new HashSet<>();
-//                    tempDoc.add(temp);
-//                    rankedDocuments.put(totalWeight, tempDoc);
-//                } else {
-//                    tempDoc = rankedDocuments.get(totalWeight);
-//                    tempDoc.add(temp);
-//                    rankedDocuments.put(totalWeight, tempDoc);
-//                }
-//            }
-//            totalWeight = 0;
-//        }
-//    } 
+    }
     
     public void printDocResult(SortedMap<Double, Set<String[]>> rankedDocuments){
         
@@ -216,124 +169,9 @@ public class RecommendationController {
             }
         }
     }
-    
-    public Map<String, Double> createQueryFromGames(UserGameScraper ugs) throws IOException{
-        String query = "";
-        
-        for(int i = 0; i < ugs.games.size(); i++){
-            query = query + ugs.games.get(i).getName() + " "
-                          + ugs.games.get(i).getAbout_the_game() + " "
-                          + ugs.games.get(i).getDetailed_description() + " "
-                          + ugs.games.get(i).developers + " "
-                          + ugs.games.get(i).publishers;
-        }
-        
-        String[] terms = removeStopWords(query).toArray(new String[0]);
-        Map<String, Double> termWeight = new HashMap<>();
-        
-        for(int i = 0; i < terms.length; i++){
-            if(!termWeight.containsKey(terms[i])){
-                    termWeight.put(terms[i], 1.0);
-            }
-            else{
-                termWeight.put(terms[i], termWeight.get(terms[i])+1);
-            }
-        }
-        
-        for(int i = 0; i < terms.length; i++){
-            termWeight.put(terms[i], 1 + Math.log10(termWeight.get(terms[i])));
-        }
-        
-        return termWeight;
-    }
-    
-    public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
-        List<String> texts = new LinkedList<>(Arrays.asList(cleanString(text).split("\\s+")));
-        
-        for(int i = texts.size()-1; i >= 0; i--){
-            for(int j = 0; j < stopWords.size(); j++){
-                if(stopWords.get(j).contains(texts.get(i))){
-                    texts.set(i, "");
-                }
-            }
-        }
-        
-        return texts;
-    }
-    
-    public String cleanString(String text){
-        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+|\\w*\\d\\w*|[\\\"\\'\\.\\,]+", "").toLowerCase();
-        
-        return newtext;
-    }
-    
-    public Map<String, Double> computeSimilarity2(UserGameScraper ugs,
-            Map<String, Map<String, Double>> invertedTerms) throws IOException{
-        
-        Map<String, Double> termTF = createQueryFromGames(ugs);
-        Map<String, Double> termIDF = computeWeightbyIDF(ugs, invertedTerms);
-        Map<String, Double> weightedGame = new HashMap<>();        
-        Map<String, Double> tempQ = new HashMap<>();
-        Map<String, Double> tempDoc = new HashMap<>();
-        
-        for(Map.Entry<String, Map<String, Double>> docID : invertedTerms.entrySet()){
-            for(Map.Entry<String, Double> docTF : docID.getValue().entrySet()){
-                if(!weightedGame.containsKey(docTF.getKey())){
-                    weightedGame.put(docTF.getKey(), 0.0);
-                    tempQ.put(docTF.getKey(), 0.0);
-                    tempDoc.put(docTF.getKey(), 0.0);
-                }
-            }
-        }
-        
-        for(Map.Entry<String, Double> queryTF : termTF.entrySet()){
-            if(invertedTerms.containsKey(queryTF.getKey())){
-                for(Map.Entry<String, Double> docTF: invertedTerms.get(queryTF.getKey()).entrySet()){
-                    double temp = weightedGame.get(docTF.getKey());
-                    weightedGame.put(docTF.getKey(), temp + queryTF.getValue() * termIDF.get(queryTF.getKey())
-                                                            * docTF.getValue() * termIDF.get(queryTF.getKey()));
-                    tempQ.put(docTF.getKey(), tempQ.get(docTF.getKey()) + queryTF.getValue() * termIDF.get(queryTF.getKey()) * queryTF.getValue() * termIDF.get(queryTF.getKey()));
-                    tempDoc.put(docTF.getKey(), tempDoc.get(docTF.getKey()) + docTF.getValue() * termIDF.get(queryTF.getKey()) * docTF.getValue() * termIDF.get(queryTF.getKey()));
-                }
-            }
-        }
-        
-        for(Map.Entry<String, Double> simDoc : weightedGame.entrySet()){
-            double temp = Math.sqrt(tempQ.get(simDoc.getKey()) * Math.sqrt(tempDoc.get(simDoc.getKey()))) /* * ugs.games.size()*/;
-            
-            if(temp != 0){
-                weightedGame.put(simDoc.getKey(), simDoc.getValue()/temp);
-            }
-            else{
-                weightedGame.put(simDoc.getKey(), 0.0);
-            }
-        }
-                
-        return weightedGame;
-    }
-        
-    public Map<String, Double> computeWeightbyIDF(UserGameScraper ugs,
-            Map<String, Map<String, Double>> invertedTerms) throws IOException{
-        
-        Map<String, Double> gamesCollection = createQueryFromGames(ugs);
-        Map<String, Double> IDFTerm = new HashMap<>();
-        
-        for(Map.Entry<String, Double> queryTerm : gamesCollection.entrySet()){
-            if(invertedTerms.containsKey(queryTerm.getKey())){
-                int count = invertedTerms.get(queryTerm.getKey()).size();
-                IDFTerm.put(queryTerm.getKey(), (1 + Math.log10(game_count/count)));
-            }
-            else{
-                IDFTerm.put(queryTerm.getKey(), 0.0);
-            }
-        }
-        
-        return IDFTerm;
-    }
-    
+                        
     public Map<String, Double> computeIDF(){
-        System.out.println("LoadedTermsDiComputeIDF: " + loadedTerms.keySet().toString());
-        
+//        System.out.println("LoadedTermsDiComputeIDF: " + loadedTerms.keySet().toString());
         Map<String, Double> termIDF = new HashMap<>();
         
         for(int i = 0; i < allTerms.size(); i++){
@@ -344,6 +182,7 @@ public class RecommendationController {
                 }
             }
             termIDF.put(allTerms.get(i), 1 + Math.log10(loadedTerms.size()/counter));
+//            System.out.println("i naik: " + i);
         }
         
 //        System.out.println("IDFLIST " + termIDF.toString());
@@ -355,6 +194,7 @@ public class RecommendationController {
         IDFList = computeIDF();
         double IDF = 0.0;
         double TF = 0.0;
+        int counter = 0;
         
         weightedTerm = loadInvertedFile("data/terms.txt");
         
@@ -363,6 +203,8 @@ public class RecommendationController {
                 IDF = IDFList.get(termEntry.getKey());
                 TF = termWeight.getValue();
                 termWeight.setValue(TF * IDF);
+                counter++;
+//                System.out.println("baaaaa " + counter);
             }
         }
         
@@ -387,7 +229,7 @@ public class RecommendationController {
 
             String pastAppID = "";
             while ((sCurrentLine = br.readLine()) != null) {
-                System.out.println("sCurrentLine: " + sCurrentLine);
+//                System.out.println("sCurrentLine: " + sCurrentLine);
                 
                 tempTerms = "";
                 tempAppID = "";
@@ -486,8 +328,44 @@ public class RecommendationController {
         
         return Math.sqrt(tempLength);
     }
+        
+    public double computeIrisan(String appID1, String appID2){
+     
+        
+        List<String> tempTermsAppID1 = loadedTerms.get(appID1);
+        List<String> tempTermsAppID2 = loadedTerms.get(appID2);
+                
+        double counterIrisan = 0.0;
+        
+        for (String s : tempTermsAppID1) {
+            if(tempTermsAppID2.contains(s)){
+                counterIrisan = counterIrisan + 1.0;
+            }
+        }
+        
+        return counterIrisan;
+    }
     
-    public Map<String, Map<String, Double>> computeScore(Games steamgames, UserGameScraper ugs){
+    public double computejumlahTerm (String appID){
+        List<String> tempTermsAppID = new ArrayList<>();
+        tempTermsAppID = loadedTerms.get(appID);
+        
+        return tempTermsAppID.size();
+    }
+    
+    public double computeJaccardSimilarity (String appID1, String appID2){
+        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
+        double irisan = computeIrisan(appID1, appID2);
+        System.out.println("jumlah irisan: " + irisan);
+        
+        double jumlahAppID1 = computejumlahTerm(appID1);
+        
+        double jumlahAppID2 = computejumlahTerm(appID2);
+        
+        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
+    }
+
+    public Map<String, Map<String, Double>> computeCosineScore(Games steamgames, UserGameScraper ugs){
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -497,13 +375,27 @@ public class RecommendationController {
             gameScore = new HashMap<>();
             for(int i = 0; i < ugs.games.size(); i++){
                 tempScore = computeCosineSimilarity(steam.getKey(), ugs.games.get(i).appID);
-//                System.out.println("isi tempscore :"+steam.getKey()+" dan "+ugs.games.get(i).appID+" = "+tempScore);
                 gameScore.put(ugs.games.get(i).appID, tempScore);
             }
             gameScores.put(steam.getKey(), gameScore);
         }
+        return gameScores;
+    }
+    
+    public Map<String, Map<String, Double>> computeJaccardScore(Games steamgames, UserGameScraper ugs){
         
-//        System.out.println(gameScores.toString());
+        double tempScore;
+        Map<String, Double> gameScore;
+        Map<String, Map<String, Double>> gameScores = new HashMap<>();
+                    
+        for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+            gameScore = new HashMap<>();
+            for(int i = 0; i < ugs.games.size(); i++){
+                tempScore = computeJaccardSimilarity(steam.getKey(), ugs.games.get(i).appID);
+                gameScore.put(ugs.games.get(i).appID, tempScore);
+            }
+            gameScores.put(steam.getKey(), gameScore);
+        }
         return gameScores;
     }
     
@@ -521,18 +413,33 @@ public class RecommendationController {
         
         return finalScore;
     }
-    
-    public Map<String, List<Game>> getFriendGames(UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws IOException, Exception{
-        // maunya return String(appID) dan Int(jumlah yang punya)
+
+    public List<String> loadAllGames(Games steamgames){
         
-        Map<String, List<Game>> friendGames = new HashMap<>();
-        List<String> friendList = new ArrayList<>();        
+        List<String> gamelist = new ArrayList<>();
+        
+        for(Map.Entry<String, Game> glist : steamgames.gameList.entrySet()){
+            gamelist.add(glist.getKey());
+        }
+        
+        return gamelist;
+    }
+    
+    public Map<String, List<String>> getFriendGames(UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws IOException, Exception{
+        
+        Map<String, List<String>> friendGames = new HashMap<>();
+        List<String> friendList = new ArrayList<>();
+        List<String> gameList = new ArrayList<>();
+        
         ufs.scrape(steam64id);
         friendList = ufs.friendlist;
         
         for(int i = 0; i < friendList.size(); i++){
             ugs.scrape(friendList.get(i));
-            friendGames.put(steam64id, ugs.games);
+            for(int j = 0; j < ugs.games.size(); j++){
+                gameList.add(ugs.games.get(j).appID);
+            }
+            friendGames.put(steam64id, gameList);
         }
         
         return friendGames;
@@ -561,54 +468,25 @@ public class RecommendationController {
         return commonGames;
     }
     
-    public double computeIrisan(String appID1, String appID2){
-     
+    public Map<String, Integer> getCommGames(List<String> gamelist, UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws Exception{
         
-        List<String> tempTermsAppID1 = loadedTerms.get(appID1);
-        List<String> tempTermsAppID2 = loadedTerms.get(appID2);
+        Map<String, Integer> gameCount = new HashMap<>();
+        Map<String, List<String>> friendGames = new HashMap<>();
+        int counter = 0;
+        
+        friendGames = getFriendGames(ufs, ugs, steam64id);
                 
-        double counterIrisan = 0.0;
-        
-        for (String s : tempTermsAppID1) {
-            if(tempTermsAppID2.contains(s)){
-                counterIrisan = counterIrisan + 1.0;
+        for(int i = 0; i < gamelist.size(); i++){
+            for(Map.Entry<String, List<String>> tempGames : friendGames.entrySet()){
+                if(tempGames.getValue().contains(gamelist.get(i))){
+                    counter++;
+                }
             }
+            gameCount.put(gamelist.get(i), counter);
         }
-//        double counterIrisan = 0.0;
-//
-//        for(String s: weightedTerm.keySet()){
-//            Map<String, Double> tempListAppID1 = new HashMap<>();
-//            Map<String, Double> tempListAppID2 = new HashMap<>();
-//            
-//            tempListAppID1 = weightedTerm.get(s);
-//            
-//            if(tempListAppID1.containsKey(appID1) && tempListAppID1.containsKey(appID2)){
-//                counterIrisan = counterIrisan + 1.0;
-//            }
-//        }
         
-        return counterIrisan;
+        return gameCount;
     }
-    
-    public double computejumlahTerm (String appID){
-        List<String> tempTermsAppID = new ArrayList<>();
-        tempTermsAppID = loadedTerms.get(appID);
-        
-        return tempTermsAppID.size();
-    }
-    
-    public double countJaccardSimilarity (String appID1, String appID2){
-        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
-        double irisan = computeIrisan(appID1, appID2);
-        System.out.println("jumlah irisan: " + irisan);
-        
-        double jumlahAppID1 = computejumlahTerm(appID1);
-        
-        double jumlahAppID2 = computejumlahTerm(appID2);
-        
-        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
-    }
-    
     
     public <K, V extends Comparable< ? super V>> Map<K, V>
     sortMapByValues(final Map <K, V> mapToSort)
@@ -640,6 +518,47 @@ public class RecommendationController {
 
         return sortedMap;
 
-    }        
+    }
+    
+    public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
+        List<String> oldtexts = new LinkedList<>(Arrays.asList(cleanString(text).split("\\s+")));
+        List<String> texts = stemAll(oldtexts);
+        
+        
+        for(int i = texts.size()-1; i >= 0; i--){
+            for(int j = 0; j < stopWords.size(); j++){
+                if(stopWords.get(j).contains(texts.get(i))){
+                    texts.set(i, "");
+                }
+            }
+        }
+        
+        return texts;
+    }
+    
+    public String cleanString(String text){
+        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
+        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
+        
+        return newtext2;
+    }
      
+    public String stem(String word) {
+        PorterStemmer stem = new PorterStemmer();
+        stem.add(word.toCharArray(), word.length());
+        stem.stem();
+
+        return stem.toString();
+    }
+    
+    public List<String> stemAll(List<String> oldList){
+        List<String> newList = new ArrayList<>();
+        
+        for(int i = 0; i < oldList.size(); i++){
+            newList.add(stem(oldList.get(i)));
+        }
+        
+        return newList;
+        
+    }
 }

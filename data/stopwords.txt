@@ -17,6 +17,7 @@ at
 be
 because
 been
+br
 but
 by
 can
@@ -30,6 +31,7 @@ either
 else
 ever
 every
+fi
 for
 from
 get
@@ -52,6 +54,7 @@ is
 it
 its
 just
+km
 least
 let
 like
@@ -79,6 +82,7 @@ rather
 said
 say
 says
+sg
 she
 should
 since

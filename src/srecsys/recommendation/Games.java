@@ -28,12 +28,6 @@ public class Games {
     public List<String> game_detailed_description_List = new ArrayList<>();
     public List<String> game_about_the_game_List = new ArrayList<>();
     
-    public String totalName = "";
-    public String totalDesc = "";
-    public String totalTerm = "";
-    public String totalDev = "";
-    public String totalPub = "";
-    
     public List<String> stopWords = new ArrayList<>();
     
     public void loadTerms() throws IOException, ParseException{
@@ -69,7 +63,6 @@ public class Games {
                 game_developers = (String) i_dev.next();
                 g.developers.add(game_developers);
                 g.addTerm(game_developers);
-                totalDev = totalDev.concat(cleanString(game_developers).concat(" "));
             }
             // untuk game_publishers
             JSONArray pub_array = (JSONArray) game.get("Publishers");
@@ -79,7 +72,6 @@ public class Games {
                 game_publishers = (String) i_pub.next();
                 g.publishers.add(game_publishers);
                 g.addTerm(game_publishers);
-                totalPub = totalPub.concat(cleanString(game_publishers).concat(" "));
             }
             // untuk gane_genre
             JSONArray genre_array = (JSONArray) game.get("Genres");
@@ -91,25 +83,14 @@ public class Games {
             }
             
             gameList.put(g.appID, g);
-            
-            totalName = totalName.concat(cleanString(game_name)).concat(" ");
-            totalDesc = totalDesc.concat(cleanString(game_detailed_description))
-                                 .concat(" ")
-                                 .concat(cleanString(game_about_the_game))
-                                 .concat(" ");
         }
-        totalTerm = totalName + totalDesc + totalDev + totalPub;
-        String[] splittedName = totalTerm.split("\\s+");
-        Arrays.sort(splittedName);
-        attributeList = new LinkedList<>(Arrays.asList(splittedName));
-        
-//        removeStopWords();
     }
     
     public String cleanString(String text){
-        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+|\\w*\\d\\w*|[\\\"\\'\\.\\,]+|", "").toLowerCase();
+        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
+        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
         
-        return newtext;
+        return newtext2;
     }
     
     public void removeStopWords() throws FileNotFoundException, IOException{

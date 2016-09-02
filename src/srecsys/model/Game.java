@@ -119,9 +119,10 @@ public class Game {
     }
     
     public String cleanString(String text){
-        String newtext = text.replaceAll("<\\/?[^>]+>|[^\\w\\s]+|\\w*\\d\\w*|[\\\"\\'\\.\\,]+|", "").toLowerCase();
+        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
+        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
         
-        return newtext;
+        return newtext2;
     }
     
     public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
