@@ -1,14 +1,10 @@
 package srecsys.recommendation;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.json.simple.JSONArray;
@@ -16,7 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import srecsys.model.Game;
-import srecsys.stemmer.PorterStemmer;
 
 public class Games {
     public List<String> attributeList = new ArrayList<>();
@@ -34,7 +29,7 @@ public class Games {
     public void loadTerms() throws IOException, ParseException{
         JSONParser parser = new JSONParser();
         
-        Object obj = parser.parse(new FileReader("data/steamgamelistraw.json"));
+        Object obj = parser.parse(new FileReader("data/steamgamelistraw - all.json"));
         JSONObject jsonobj = (JSONObject) obj;
         JSONArray games_array = (JSONArray) jsonobj.get("Games");
         Iterator i = games_array.iterator();

@@ -25,6 +25,7 @@ public class Main {
     private static Set<String> ownedGenre;
     private static Map<String, Double> rankedGames;
     private static Map<String, Double> sortedGames;
+    private static Map<String, Double> cutGames;
     private static Map<String, Map<String,Double>> gameResults;
     
     
@@ -83,12 +84,13 @@ public class Main {
 ////////////////////////////////////////////////////////////////////////////////
 // JACCARD SIMILARITY///////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////             
-//        gameResults = RC.computeJaccardScore(steamgames, ugs);
-//        rankedGames = RC.computeFinalScore(gameResults);
-////        RC.removeOwnedGames(rankedGames, ugs);
-//        sortedGames = RC.sortMapByValues(rankedGames);        
-//        System.out.println("hasilnya adalah");
-//        System.out.println(sortedGames.toString());
+        gameResults = RC.computeJaccardScore(steamgames, ugs);
+        rankedGames = RC.computeFinalScore(gameResults);
+//        RC.removeOwnedGames(rankedGames, ugs);
+        sortedGames = RC.sortMapByValues(rankedGames);
+        cutGames = RC.getTop50Values(sortedGames);
+        System.out.println("hasilnya adalah");
+        System.out.println(cutGames.toString());
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

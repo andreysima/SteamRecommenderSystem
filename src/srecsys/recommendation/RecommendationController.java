@@ -9,14 +9,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -25,10 +23,10 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import srecsys.model.Game;
 import srecsys.scraper.UserFriendScraper;
 import srecsys.scraper.UserGameScraper;
-import srecsys.stemmer.PorterStemmer;
 
 public class RecommendationController {
     
@@ -40,7 +38,7 @@ public class RecommendationController {
     
     public RecommendationController(){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("data/stopwords - all.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
             String currentLine;
 
             while((currentLine = br.readLine()) != null){
@@ -328,7 +326,19 @@ public class RecommendationController {
         
         return Math.sqrt(tempLength);
     }
+       
+    public double computeJaccardSimilarity (String appID1, String appID2){
+        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
+        double irisan = computeIrisan(appID1, appID2);
+        System.out.println("jumlah irisan: " + irisan);
         
+        double jumlahAppID1 = computejumlahTerm(appID1);
+        
+        double jumlahAppID2 = computejumlahTerm(appID2);
+        
+        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
+    }
+    
     public double computeIrisan(String appID1, String appID2){
      
         
@@ -352,20 +362,10 @@ public class RecommendationController {
         
         return tempTermsAppID.size();
     }
-    
-    public double computeJaccardSimilarity (String appID1, String appID2){
-        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
-        double irisan = computeIrisan(appID1, appID2);
-        System.out.println("jumlah irisan: " + irisan);
-        
-        double jumlahAppID1 = computejumlahTerm(appID1);
-        
-        double jumlahAppID2 = computejumlahTerm(appID2);
-        
-        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
-    }
 
     public Map<String, Map<String, Double>> computeCosineScore(Games steamgames, UserGameScraper ugs){
+        // Map<steam_appID, Map<owned_appID, similarity_score>>
+        // ngambil top 50 game tinggal pake for() untuk entryset dan juga counter trus break;
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -381,7 +381,7 @@ public class RecommendationController {
         }
         return gameScores;
     }
-    
+        
     public Map<String, Map<String, Double>> computeJaccardScore(Games steamgames, UserGameScraper ugs){
         
         double tempScore;
@@ -488,8 +488,24 @@ public class RecommendationController {
         return gameCount;
     }
     
-    public <K, V extends Comparable< ? super V>> Map<K, V>
-    sortMapByValues(final Map <K, V> mapToSort)
+    public Map<String, Double> getTop50Values(Map<String, Double> map){
+        Map<String, Double> newmap = new HashMap<>();
+        int counter = 0;
+        int limit = 50;
+        
+        
+        for(Map.Entry<String, Double> mapcontent : map.entrySet()){
+            newmap.put(mapcontent.getKey(), mapcontent.getValue());
+            counter++;
+            if(counter >= limit){
+                break;
+            }
+        }
+        
+        return newmap;
+    }
+    
+    public <K, V extends Comparable< ? super V>> Map<K, V>sortMapByValues2(final Map <K, V> mapToSort)
     {
         List<Map.Entry<K, V>> entries =
             new ArrayList<Map.Entry<K, V>>(mapToSort.size());  
@@ -518,6 +534,16 @@ public class RecommendationController {
 
         return sortedMap;
 
+    }
+    
+    public <K, V extends Comparable<? super V>> Map<K, V> sortMapByValues(Map<K, V> map) {
+    return map.entrySet()
+              .stream()
+              .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+              .collect(Collectors.toMap((entry) -> entry.getKey(), (entry) -> entry.getValue(), 
+                (e1, e2) -> e1, 
+                LinkedHashMap::new
+              ));
     }
     
 }
