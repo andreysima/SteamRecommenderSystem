@@ -40,7 +40,7 @@ public class RecommendationController {
     
     public RecommendationController(){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("data/stopwords - all.txt"));
             String currentLine;
 
             while((currentLine = br.readLine()) != null){
@@ -520,45 +520,4 @@ public class RecommendationController {
 
     }
     
-    public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
-        List<String> oldtexts = new LinkedList<>(Arrays.asList(cleanString(text).split("\\s+")));
-        List<String> texts = stemAll(oldtexts);
-        
-        
-        for(int i = texts.size()-1; i >= 0; i--){
-            for(int j = 0; j < stopWords.size(); j++){
-                if(stopWords.get(j).contains(texts.get(i))){
-                    texts.set(i, "");
-                }
-            }
-        }
-        
-        return texts;
-    }
-    
-    public String cleanString(String text){
-        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
-        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
-        
-        return newtext2;
-    }
-     
-    public String stem(String word) {
-        PorterStemmer stem = new PorterStemmer();
-        stem.add(word.toCharArray(), word.length());
-        stem.stem();
-
-        return stem.toString();
-    }
-    
-    public List<String> stemAll(List<String> oldList){
-        List<String> newList = new ArrayList<>();
-        
-        for(int i = 0; i < oldList.size(); i++){
-            newList.add(stem(oldList.get(i)));
-        }
-        
-        return newList;
-        
-    }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import srecsys.stemmer.PorterStemmer;
 
 /**
  * kelas untuk mendefinisikan game
@@ -104,7 +105,9 @@ public class Game {
     }
     
     public void addTerm(String term) throws IOException{
-        List<String> term_array = removeStopWords(term);
+        List<String> unstemmed_term_array = removeStopWords(term);
+        List<String> term_array = stemAll(unstemmed_term_array); 
+        
 
         for(int i = 0; i < term_array.size(); i++){
             if (term_array.get(i).length() > 0) {
@@ -116,13 +119,6 @@ public class Game {
                 }
             }
         }
-    }
-    
-    public String cleanString(String text){
-        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
-        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
-        
-        return newtext2;
     }
     
     public List<String> removeStopWords(String text) throws FileNotFoundException, IOException{
@@ -137,5 +133,30 @@ public class Game {
         }
         
         return texts;
-    }    
+    }
+    
+    public String cleanString(String text){
+        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
+        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
+        
+        return newtext2;
+    }
+     
+    public String stem(String word) {
+        PorterStemmer stem = new PorterStemmer();
+        stem.add(word.toCharArray(), word.length());
+        stem.stem();
+
+        return stem.toString();
+    }
+    
+    public List<String> stemAll(List<String> oldList){
+        List<String> newList = new ArrayList<>();
+        
+        for(int i = 0; i < oldList.size(); i++){
+            newList.add(stem(oldList.get(i)));
+        }
+        
+        return newList;
+    }   
 }

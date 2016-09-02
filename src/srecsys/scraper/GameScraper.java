@@ -141,7 +141,7 @@ public class GameScraper {
                 gameArray.put(game);
             }
             gameObj.put("Games", gameArray);
-            if(i%199==0 && i!=0)
+            if(i%150==0 && i!=0)
                 Thread.sleep(240000);
         }
         

@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import srecsys.model.Game;
+import srecsys.stemmer.PorterStemmer;
 
 public class Games {
     public List<String> attributeList = new ArrayList<>();
@@ -85,32 +86,5 @@ public class Games {
             gameList.put(g.appID, g);
         }
     }
-    
-    public String cleanString(String text){
-        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
-        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
         
-        return newtext2;
-    }
-    
-    public void removeStopWords() throws FileNotFoundException, IOException{
-        BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
-        String currentLine;
-        int size = attributeList.size();
-        
-        while((currentLine = br.readLine()) != null){
-            stopWords.add(currentLine);
-        }
-        
-        System.out.println(attributeList.size());
-        
-        for(int i = size - 1; i >= 0; i--){
-            for(int j = 0; j < stopWords.size(); j++){
-                if(stopWords.get(j).contains(attributeList.get(i))){
-                    attributeList.remove(i);
-                }
-            }
-        }
-    }
-    
 }
