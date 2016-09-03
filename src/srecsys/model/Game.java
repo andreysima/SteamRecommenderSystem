@@ -136,10 +136,12 @@ public class Game {
     }
     
     public String cleanString(String text){
-        String newtext1 = text.replaceAll("<\\/?[^>]+>", "").toLowerCase();
-        String newtext2 = newtext1.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
+        String newtext1 = text.replaceAll("\\", "").toLowerCase();
+        String newtext2 = newtext1.replaceAll("\\b(https?|ftp|file):\\/\\/[www\\.][-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", "").toLowerCase();
+        String newtext3 = newtext2.replaceAll("<\\/?[^>]+>", "").toLowerCase();
+        String newtext4 = newtext3.replaceAll("[^\\w\\s]+|\\w*\\d\\w*", "").toLowerCase();
         
-        return newtext2;
+        return newtext4;
     }
      
     public String stem(String word) {

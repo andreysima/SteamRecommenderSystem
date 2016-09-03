@@ -69,6 +69,23 @@ public class RecommendationController {
         }
     }
     
+    public void saveTermswithTFIDFToFile(String ifLocation){
+        
+        try {
+            Writer output = new BufferedWriter(new FileWriter(new File(ifLocation)));
+            
+            for(Map.Entry<String, Map<String, Double>> wTerms : weightedTerm.entrySet()){
+                for(Map.Entry<String, Double> wTerm : weightedTerm.get(wTerms.getKey()).entrySet()){
+                    output.write(wTerms.getKey() + ' ' + wTerm.getKey() + ' ' + wTerm.getValue() + "\n");
+                }
+            }
+
+            output.close();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }    
+    
     public Map<String, Map<String, Double>> loadInvertedFile(String ifLocation){
         Map<String, Map<String, Double>> invertedTerms = new HashMap<>();
         Scanner input;
@@ -169,8 +186,9 @@ public class RecommendationController {
     }
                         
     public Map<String, Double> computeIDF(){
-//        System.out.println("LoadedTermsDiComputeIDF: " + loadedTerms.keySet().toString());
+        
         Map<String, Double> termIDF = new HashMap<>();
+        loadTerms("data/terms.txt");
         
         for(int i = 0; i < allTerms.size(); i++){
             int counter = 0;
@@ -180,7 +198,6 @@ public class RecommendationController {
                 }
             }
             termIDF.put(allTerms.get(i), 1 + Math.log10(loadedTerms.size()/counter));
-//            System.out.println("i naik: " + i);
         }
         
 //        System.out.println("IDFLIST " + termIDF.toString());
@@ -192,19 +209,19 @@ public class RecommendationController {
         IDFList = computeIDF();
         double IDF = 0.0;
         double TF = 0.0;
-        int counter = 0;
         
         weightedTerm = loadInvertedFile("data/terms.txt");
-        
+        //            term        appID   logTF        
         for(Map.Entry<String, Map<String, Double>> termEntry : weightedTerm.entrySet()){
+            //            appID  logTF*IDF
             for(Map.Entry<String, Double> termWeight : weightedTerm.get(termEntry.getKey()).entrySet()){
                 IDF = IDFList.get(termEntry.getKey());
                 TF = termWeight.getValue();
                 termWeight.setValue(TF * IDF);
-                counter++;
-//                System.out.println("baaaaa " + counter);
             }
         }
+        
+        saveTermswithTFIDFToFile("data/termscounted.txt");
         
 //        System.out.println("TFIDF "+weightedTerm.toString());
     }
@@ -298,9 +315,11 @@ public class RecommendationController {
     }
     
     public double dotProductTwoVectors (String appID1, String appID2){
-        double tempSum = 0.0;
         
-        for(Map.Entry <String, Map<String, Double>> entryGame: weightedTerm.entrySet()){
+        double tempSum = 0.0;
+        Map<String, Map<String, Double>> TFIDFTerm = loadInvertedFile("data/termscounted.txt");
+        
+        for(Map.Entry <String, Map<String, Double>> entryGame: TFIDFTerm.entrySet()){
             Map<String, Double> tempValue = entryGame.getValue();
             if(tempValue.keySet().contains(appID1) && tempValue.keySet().contains(appID2)){
                 double tempMultiplication = tempValue.get(appID1) * tempValue.get(appID2);
@@ -314,8 +333,9 @@ public class RecommendationController {
     public double countVectorLength (String appID){
 
         double tempLength = 0.0;
+        Map<String, Map<String, Double>> TFIDFTerm = loadInvertedFile("data/termscounted.txt");        
         
-        for(Map.Entry <String, Map<String, Double>> entryGame: weightedTerm.entrySet()){
+        for(Map.Entry <String, Map<String, Double>> entryGame: TFIDFTerm.entrySet()){
             Map<String, Double> tempValue = entryGame.getValue();
             if(tempValue.keySet().contains(appID)){
                 tempLength += tempValue.get(appID)*tempValue.get(appID);
@@ -328,19 +348,15 @@ public class RecommendationController {
     }
        
     public double computeJaccardSimilarity (String appID1, String appID2){
-        System.out.println("APPID1: " + appID1 + ", APPID2: " + appID2);
-        double irisan = computeIrisan(appID1, appID2);
-        System.out.println("jumlah irisan: " + irisan);
-        
-        double jumlahAppID1 = computejumlahTerm(appID1);
-        
+
+        double irisan = computeIrisan(appID1, appID2);        
+        double jumlahAppID1 = computejumlahTerm(appID1);        
         double jumlahAppID2 = computejumlahTerm(appID2);
         
         return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
     }
     
     public double computeIrisan(String appID1, String appID2){
-     
         
         List<String> tempTermsAppID1 = loadedTerms.get(appID1);
         List<String> tempTermsAppID2 = loadedTerms.get(appID2);
@@ -357,7 +373,9 @@ public class RecommendationController {
     }
     
     public double computejumlahTerm (String appID){
+        
         List<String> tempTermsAppID = new ArrayList<>();
+        
         tempTermsAppID = loadedTerms.get(appID);
         
         return tempTermsAppID.size();
@@ -365,7 +383,6 @@ public class RecommendationController {
 
     public Map<String, Map<String, Double>> computeCosineScore(Games steamgames, UserGameScraper ugs){
         // Map<steam_appID, Map<owned_appID, similarity_score>>
-        // ngambil top 50 game tinggal pake for() untuk entryset dan juga counter trus break;
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -379,8 +396,37 @@ public class RecommendationController {
             }
             gameScores.put(steam.getKey(), gameScore);
         }
+        
         return gameScores;
     }
+    
+    public Map<String, Map<String, Double>> computeCosineScore2(Games steamgames, UserGameScraper ugs){
+        // Map<steam_appID, Map<owned_appID, similarity_score>>
+        
+        double tempScore;
+        Map<String, Double> gameScore;
+        Map<String, Double> sortedGameScore = new HashMap<>();
+        Map<String, Double> top50GameScore = new HashMap<>();
+        Map<String, Double> sorted50GameScore = new HashMap<>();
+        Map<String, Map<String, Double>> gameScores = new HashMap<>();
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            gameScore = new HashMap<>();
+            for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+                tempScore = computeCosineSimilarity(ugs.games.get(i).appID, steam.getKey());
+                gameScore.put(steam.getKey(), tempScore);
+            }
+            sortedGameScore = sortMapByValues(gameScore);
+            top50GameScore = getTop50Values(sortedGameScore);
+            sorted50GameScore = sortMapByValues(top50GameScore);
+            
+            gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
+        }
+        
+        System.out.println("skor cosine : " + gameScores.toString());
+        
+        return gameScores;
+    } 
         
     public Map<String, Map<String, Double>> computeJaccardScore(Games steamgames, UserGameScraper ugs){
         
@@ -396,10 +442,39 @@ public class RecommendationController {
             }
             gameScores.put(steam.getKey(), gameScore);
         }
+        
         return gameScores;
     }
     
-    public Map<String, Double> computeFinalScore(Map<String, Map<String,Double>> gameScores){
+    public Map<String, Map<String, Double>> computeJaccardScore2(Games steamgames, UserGameScraper ugs){
+        // Map<steam_appID, Map<owned_appID, similarity_score>>
+        
+        double tempScore;
+        Map<String, Double> gameScore;
+        Map<String, Double> sortedGameScore = new HashMap<>();
+        Map<String, Double> top50GameScore = new HashMap<>();
+        Map<String, Double> sorted50GameScore = new HashMap<>();
+        Map<String, Map<String, Double>> gameScores = new HashMap<>();
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            gameScore = new HashMap<>();
+            for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+                tempScore = computeJaccardSimilarity(ugs.games.get(i).appID, steam.getKey());
+                gameScore.put(steam.getKey(), tempScore);
+            }
+            sortedGameScore = sortMapByValues(gameScore);
+            top50GameScore = getTop50Values(sortedGameScore);
+            sorted50GameScore = sortMapByValues(top50GameScore);
+            
+            gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
+        }
+        
+        System.out.println("skor jaccard : " + gameScores.toString());
+        
+        return gameScores;
+    }    
+    
+    public Map<String, Double> computeFinalScore(Map<String, Map<String, Double>> gameScores){
         
         Map<String, Double> finalScore = new HashMap<>();
         double score = 0.0;
@@ -413,6 +488,23 @@ public class RecommendationController {
         
         return finalScore;
     }
+    
+    public Map<String, Double> computeFinalScore2(Map<String, Map<String, Double>> gameScores){
+        // mau jadi Map<appID, skor>
+        // kalo ada suatu game yang muncul di beberapa, kasih prioritas
+        
+        Map<String, Double> finalScore = new HashMap<>();
+        double score = 0.0;
+        
+        for(Map.Entry <String, Map<String, Double>> gameScore : gameScores.entrySet()){
+            for(Map.Entry <String, Double> tempScore : gameScore.getValue().entrySet()){
+                score += tempScore.getValue();
+            }
+            finalScore.put(gameScore.getKey(), score);
+        }
+        
+        return finalScore;
+    }    
 
     public List<String> loadAllGames(Games steamgames){
         
@@ -445,7 +537,7 @@ public class RecommendationController {
         return friendGames;
     }
     
-    public Map<Game, Integer> getCommonGames(Map<String, List<Game>> friendGames){
+    public Map<Game, Integer> getCommGames(Map<String, List<Game>> friendGames){
         
         Map<Game, Integer> commonGames = new HashMap<>();
         int tempSum = 0;
@@ -468,7 +560,7 @@ public class RecommendationController {
         return commonGames;
     }
     
-    public Map<String, Integer> getCommGames(List<String> gamelist, UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws Exception{
+    public Map<String, Integer> getCommonGames(List<String> gamelist, UserFriendScraper ufs, UserGameScraper ugs, String steam64id) throws Exception{
         
         Map<String, Integer> gameCount = new HashMap<>();
         Map<String, List<String>> friendGames = new HashMap<>();
@@ -489,11 +581,11 @@ public class RecommendationController {
     }
     
     public Map<String, Double> getTop50Values(Map<String, Double> map){
+        
         Map<String, Double> newmap = new HashMap<>();
         int counter = 0;
         int limit = 50;
-        
-        
+                
         for(Map.Entry<String, Double> mapcontent : map.entrySet()){
             newmap.put(mapcontent.getKey(), mapcontent.getValue());
             counter++;
@@ -505,37 +597,81 @@ public class RecommendationController {
         return newmap;
     }
     
-    public <K, V extends Comparable< ? super V>> Map<K, V>sortMapByValues2(final Map <K, V> mapToSort)
-    {
-        List<Map.Entry<K, V>> entries =
-            new ArrayList<Map.Entry<K, V>>(mapToSort.size());  
-
-        entries.addAll(mapToSort.entrySet());
-
-        Collections.sort(entries,
-                         new Comparator<Map.Entry<K, V>>()
-        {
-            @Override
-            public int compare(
-                   final Map.Entry<K, V> entry1,
-                   final Map.Entry<K, V> entry2)
-            {
-                return entry1.getValue().compareTo(entry2.getValue());
+    public Map<String, Double> recommendbyScore(Map<String, Map<String, Double>> scoremap){
+        // Map<String, Map<String, Double>> mau jadi Map<String, Double>
+        // Map<owned_app, Map<steam_app, similarity>> mau jadi Map<steam_app, similarity>
+        
+        Map<String, Double> finalRecommendation = new HashMap<>();
+        Map<String, Double> sortedFinalRecommendation = new HashMap<>();
+        Map<String, Double> top50FinalRecommendation = new HashMap<>();
+        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
+        
+        for(Map.Entry<String, Map<String, Double>> scores : scoremap.entrySet()){
+            for(Map.Entry<String, Double> score : scoremap.get(scores.getKey()).entrySet()){
+                
+                if(scores.getKey().equals(score.getKey())){
+                    // untuk menghilangkan perbandingan similarity dengan appid sendiri
+                    score.setValue(0.0);
+                }
+                
+                if(finalRecommendation.keySet().contains(score.getKey())){
+                    // compare
+                    if(finalRecommendation.get(score.getKey()) < score.getValue()){
+                        finalRecommendation.remove(score.getKey());
+                        finalRecommendation.put(score.getKey(), score.getValue());
+                    }
+                }
+                else{
+                    // masukin
+                    finalRecommendation.put(score.getKey(), score.getValue());
+                }
             }
-        });      
-
-        Map<K, V> sortedMap = new LinkedHashMap<K, V>();      
-
-        for (Map.Entry<K, V> entry : entries)
-        {
-            sortedMap.put(entry.getKey(), entry.getValue());
-
-        }      
-
-        return sortedMap;
-
+        }
+        
+        sortedFinalRecommendation = sortMapByValues(finalRecommendation);
+        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
+        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
+        
+        return sorted50FinalRecommendation;
     }
     
+    public Map<String, Double> recommendbyScorewithFriend(Map<String, Double> recommendation, Map<String, Double> bonusScore){
+        
+        Map<String, Double> sortedFinalRecommendation = new HashMap<>();
+        Map<String, Double> top50FinalRecommendation = new HashMap<>();
+        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
+        
+        for(Map.Entry<String, Double> rec : recommendation.entrySet()){
+            if(bonusScore.keySet().contains(rec.getKey())){
+                recommendation.remove(rec.getKey());
+                recommendation.put(rec.getKey(), rec.getValue() + bonusScore.get(rec.getKey()));
+            }
+        }
+        
+        sortedFinalRecommendation = sortMapByValues(recommendation);
+        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
+        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
+        
+        return sorted50FinalRecommendation;
+    }
+    
+    public Map<String, Double> bonusScoreFromFriends(Map<String, Integer> commonGames, UserFriendScraper ufs){
+        
+        Map<String, Double> bonusScore = new HashMap<>();
+        int friendsize = ufs.friendlist.size();
+        
+        for(Map.Entry<String, Integer> commGames : commonGames.entrySet()){
+            bonusScore.put(commGames.getKey(), (commGames.getValue() * 1D)/(friendsize * 1D));
+        }
+        
+        return bonusScore;
+    }
+    
+    public void recommendbyAppearance(){
+        // punya Map<String, Map<String, Double>>
+        //           owned_ID   steam_ID sim
+    }
+        
     public <K, V extends Comparable<? super V>> Map<K, V> sortMapByValues(Map<K, V> map) {
     return map.entrySet()
               .stream()

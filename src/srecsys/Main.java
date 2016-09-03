@@ -20,12 +20,10 @@ public class Main {
     private static UserGameScraper ugs;
     private static UserScraper us;
     private static Games steamgames;
-    private static Map<String, Map<String, Double>> invertedTerms;
-    private static SortedMap<Double, Set<String[]>> rankedDocuments;
     private static Set<String> ownedGenre;
     private static Map<String, Double> rankedGames;
     private static Map<String, Double> sortedGames;
-    private static Map<String, Double> cutGames;
+    private static Map<String, Double> top50Games;
     private static Map<String, Map<String,Double>> gameResults;
     
     
@@ -37,8 +35,6 @@ public class Main {
         us = new UserScraper();
         
         steamgames = new Games();
-        invertedTerms = new HashMap<>();
-        rankedDocuments = new TreeMap<>(Collections.reverseOrder());
         ownedGenre = new HashSet<>();
         gameResults = new HashMap<>();
         
@@ -62,21 +58,23 @@ public class Main {
         System.out.println(ownedGenre.toString());
         System.out.println("");
         
-        RC.saveTermsToFile("data/terms.txt", steamgames);
+//        RC.saveTermsToFile("data/terms.txt", steamgames);
 //        invertedTerms = RC.loadInvertedFile("data/terms.txt");
         RC.loadTerms("data/terms.txt");
 
 ////////////////////////////////////////////////////////////////////////////////
 // COSINE SIMILARITY////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-//        RC.computeIDF();
-//        RC.computeTFIDF();              
+        RC.computeIDF();
+        RC.computeTFIDF();
 //        gameResults = RC.computeCosineScore(steamgames, ugs);
 //        rankedGames = RC.computeFinalScore(gameResults);
 //        RC.removeOwnedGames(rankedGames, ugs);
 //        sortedGames = RC.sortMapByValues(rankedGames);        
 //        System.out.println("hasilnya adalah");
 //        System.out.println(sortedGames.toString());
+
+        gameResults = RC.computeCosineScore2(steamgames, ugs);
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,13 +82,15 @@ public class Main {
 ////////////////////////////////////////////////////////////////////////////////
 // JACCARD SIMILARITY///////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////             
-        gameResults = RC.computeJaccardScore(steamgames, ugs);
-        rankedGames = RC.computeFinalScore(gameResults);
-//        RC.removeOwnedGames(rankedGames, ugs);
-        sortedGames = RC.sortMapByValues(rankedGames);
-        cutGames = RC.getTop50Values(sortedGames);
-        System.out.println("hasilnya adalah");
-        System.out.println(cutGames.toString());
+//        gameResults = RC.computeJaccardScore(steamgames, ugs);
+//        rankedGames = RC.computeFinalScore(gameResults);
+////        RC.removeOwnedGames(rankedGames, ugs);
+//        sortedGames = RC.sortMapByValues(rankedGames);
+//        top50Games = RC.getTop50Values(sortedGames);
+//        System.out.println("hasilnya adalah");
+//        System.out.println(top50Games.toString());
+        
+//        gameResults = RC.computeJaccardScore2(steamgames, ugs);
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
