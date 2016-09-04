@@ -3,6 +3,7 @@ package srecsys;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import srecsys.recommendation.Games;
@@ -11,14 +12,19 @@ import srecsys.scraper.UserFriendScraper;
 import srecsys.scraper.UserGameScraper;
 import srecsys.scraper.UserScraper;
 
-public class Main {
-    public ArrayList<ArrayList<String>> termDocumentMatrix = new ArrayList<>();
+public class Main2 {
     private static UserFriendScraper ufs;
     private static UserGameScraper ugs;
     private static UserScraper us;
     private static Games steamgames;
     private static Set<String> ownedGenre;
     private static Map<String, Double> rankedGames;
+    
+    private static Map<String, Double> rankedGameswithFriend;
+    private static Map<String, Double> bonusScoreFromFriend;
+    private static Map<String, Integer> commonGamesinFriend;
+    private static List<String> gameList;
+    
     private static Map<String, Double> sortedGames;
     private static Map<String, Double> top50Games;
     private static Map<String, Map<String,Double>> gameResults;
@@ -71,7 +77,7 @@ public class Main {
 //        System.out.println("hasilnya adalah");
 //        System.out.println(sortedGames.toString());
 
-        gameResults = RC.computeCosineScore2(steamgames, ugs);
+//        gameResults = RC.computeCosineScore2(steamgames, ugs);
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,17 +94,27 @@ public class Main {
 //        System.out.println(top50Games.toString());
         
 //        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+//        rankedGames = RC.recommendbyScore(gameResults);
+//        System.out.println("tanpa friend: " + rankedGames.toString());
+//        
+//        gameList = RC.loadAllGames(steamgames);
+//        commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
+//        bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
+//        rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGames, bonusScoreFromFriend);
+//        System.out.println("dengan friend: " + rankedGameswithFriend.toString());
+        
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-//        RC.getCommonGames(RC.getFriendGames(ufs, ugs, steam64id));
-                
-//        System.out.println(RC.computeScore(steamgames, ugs).toString());
+        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+        rankedGames = RC.recommendbyAppearance(steamgames, gameResults);
+        System.out.println("tanpa friend: " + rankedGames.toString());
         
-//        System.out.println(invertedTerms.toString());
-//        RC.computeSimilarity(rankedDocuments, steamgames, invertedTerms, ugs);
-//        rankedGames = RC.computeSimilarity(ugs, invertedTerms);
-//        sortedGames = RC.sortMapByValues(rankedGames);
+        gameList = RC.loadAllGames(steamgames);
+        commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
+        bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
+        rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGames, bonusScoreFromFriend);
+        System.out.println("dengan friend: " + rankedGameswithFriend.toString());
     }
 }

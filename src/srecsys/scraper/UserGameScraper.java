@@ -3,7 +3,6 @@ package srecsys.scraper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import srecsys.Constants;
@@ -15,6 +14,7 @@ import srecsys.model.Game;
 public class UserGameScraper {
     
     public List<Game> games;
+    public List<Game> gamesAppID;
     private Game g;
     
     public UserGameScraper(){
@@ -103,6 +103,36 @@ public class UserGameScraper {
                 }
                 
                 games.add(g);
+            }
+        }
+    }
+    
+    public void scrapeAppIDOnly(String steam64id) throws Exception{
+        System.out.println("Scraping games for user "+steam64id);
+        gamesAppID = new ArrayList<>();
+        
+        String uri = String.format(
+            "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"+
+            "?key=%s&steamid=%s&format=json&include_appinfo=1"+
+            "&include_played_free_games=1",
+                Constants.API_KEY,
+                steam64id);
+        
+        JSONObject obj = JSONController.readJSONFromURL(uri);
+        JSONObject response = obj.getJSONObject("response");
+        
+        if(!response.isNull("games")){
+            JSONArray arr_games = response.getJSONArray("games");
+            for(int i = 0; i < arr_games.length(); i++){
+                g = new Game();
+                g.setName(arr_games.getJSONObject(i).get("name").toString());
+                g.setPlaytime_forever(arr_games.getJSONObject(i).getLong("playtime_forever"));
+                if(arr_games.getJSONObject(i).has("playtime_2weeks")){
+                    g.setPlaytime_2weeks(arr_games.getJSONObject(i).getLong("playtime_2weeks"));
+                }
+                g.appID = arr_games.getJSONObject(i).get("appid").toString();
+                g.addTerm(g.appID);
+                gamesAppID.add(g);
             }
         }
     }
