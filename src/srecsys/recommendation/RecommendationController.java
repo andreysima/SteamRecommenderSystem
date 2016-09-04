@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedMap;
@@ -183,8 +184,8 @@ public class RecommendationController {
                 }
             }
         }
-    }
-                        
+    }    
+    
     public Map<String, Double> computeIDF(){
         
         Map<String, Double> termIDF = new HashMap<>();
@@ -401,7 +402,7 @@ public class RecommendationController {
     }
     
     public Map<String, Map<String, Double>> computeCosineScore2(Games steamgames, UserGameScraper ugs){
-        // Map<steam_appID, Map<owned_appID, similarity_score>>
+        // Map<owned_appID, Map<steam_appID, similarity_score>>
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -448,7 +449,7 @@ public class RecommendationController {
     }
     
     public Map<String, Map<String, Double>> computeJaccardScore2(Games steamgames, UserGameScraper ugs){
-        // Map<steam_appID, Map<owned_appID, similarity_score>>
+        // Map<owned_appID, Map<steam_appID, similarity_score>>
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -592,9 +593,6 @@ public class RecommendationController {
         // Map<owned_app, Map<steam_app, similarity>> mau jadi Map<steam_app, similarity>
         
         Map<String, Double> finalRecommendation = new HashMap<>();
-        Map<String, Double> sortedFinalRecommendation = new HashMap<>();
-        Map<String, Double> top50FinalRecommendation = new HashMap<>();
-        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
         
         for(Map.Entry<String, Map<String, Double>> scores : scoremap.entrySet()){
             for(Map.Entry<String, Double> score : scoremap.get(scores.getKey()).entrySet()){
@@ -617,12 +615,8 @@ public class RecommendationController {
                 }
             }
         }
-        
-        sortedFinalRecommendation = sortMapByValues(finalRecommendation);
-        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
-        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
-        
-        return sorted50FinalRecommendation;
+                
+        return finalRecommendation;
     }
     
     public Map<String, Double> recommendbyScorewithFriend(Map<String, Double> recommendation, Map<String, Double> bonusScore){
@@ -664,9 +658,6 @@ public class RecommendationController {
         
         List<String> steamgamelist = new ArrayList<>(steamgames.gameList.keySet());
         Map<String, Double> finalRecommendation = new HashMap<>();
-        Map<String, Double> sortedFinalRecommendation = new HashMap<>();
-        Map<String, Double> top50FinalRecommendation = new HashMap<>();
-        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
         int counter;
         
         for(int i = 0; i < steamgamelist.size(); i++){
@@ -680,14 +671,10 @@ public class RecommendationController {
             finalRecommendation.put(steamgamelist.get(i), counter*1D / scoremap.size()*1D);
         }
         
-        sortedFinalRecommendation = sortMapByValues(finalRecommendation);
-        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
-        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
-        
-        return sorted50FinalRecommendation;
+        return finalRecommendation;
         
     }
-    
+            
     public <K, V extends Comparable<? super V>> Map<K, V> sortMapByValues(Map<K, V> map) {
     return map.entrySet()
               .stream()
@@ -698,4 +685,58 @@ public class RecommendationController {
               ));
     }
     
+    public int randInt(int min, int max) {
+
+        // NOTE: This will (intentionally) not run as written so that folks
+        // copy-pasting have to think about how to initialize their
+        // Random instance.  Initialization of the Random instance is outside
+        // the main scope of the question, but some decent options are to have
+        // a field that is initialized once and then re-used as needed or to
+        // use ThreadLocalRandom (if using at least Java 1.7).
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+    
+    public void removeRandomGame(int jumlah, UserGameScraper ugs){
+        
+        int index;
+        // remove 5 game pemain
+        for(int i = 0; i < jumlah; i++){
+            index = randInt(0, ugs.games.size()-1);
+            System.out.println("Removing game : " + ugs.games.get(index).appID);
+            ugs.games.remove(index);
+        }
+        
+        System.out.println("Games right now : " + ugs.games.size());
+    }
+    
+    public void removeGamebyAppID(String appID, UserGameScraper ugs){
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            if(ugs.games.get(i).appID.equals(appID)){
+                System.out.println("Removing game : " + ugs.games.get(i).appID);
+                ugs.games.remove(i);
+            }
+        }
+        
+        System.out.println("Games right now : " + ugs.games.size());
+    }
+
+    public Map<String, Double> sortandCutMap(Map<String, Double> finalRecommendation){
+        
+        Map<String, Double> sortedFinalRecommendation = new HashMap<>();
+        Map<String, Double> top50FinalRecommendation = new HashMap<>();
+        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
+        
+        sortedFinalRecommendation = sortMapByValues(finalRecommendation);
+        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
+        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
+        
+        return sorted50FinalRecommendation;
+    }
 }

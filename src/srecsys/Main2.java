@@ -1,6 +1,5 @@
 package srecsys;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -48,12 +47,11 @@ public class Main2 {
         ugs.scrape(steam64id);
         us.scrape(steam64id);
         
-//        System.out.println("removing game: " + ugs.games.get(0));
-//        ugs.games.remove(0);
-        
+        RC.removeRandomGame(5, ugs);
+
         //mengambil game yang ada di dalam Steam
         steamgames.loadTerms();
-//        RC.removeOwnedGames(steamgames, ugs);
+//        RC.removeOwnedGames(steamgames, ugs); OOV gara gara ini
         ownedGenre = RC.getOwnedGenres(ugs);
 //        RC.removeNonGenreGames(ownedGenre, steamgames);
         
@@ -85,16 +83,24 @@ public class Main2 {
 ////////////////////////////////////////////////////////////////////////////////
 // JACCARD SIMILARITY///////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////             
-//        gameResults = RC.computeJaccardScore(steamgames, ugs);
-//        rankedGames = RC.computeFinalScore(gameResults);
-////        RC.removeOwnedGames(rankedGames, ugs);
-//        sortedGames = RC.sortMapByValues(rankedGames);
-//        top50Games = RC.getTop50Values(sortedGames);
-//        System.out.println("hasilnya adalah");
-//        System.out.println(top50Games.toString());
+//  penghitungan dengan skor
+//
+        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+        rankedGames = RC.recommendbyScore(gameResults);
+        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames).toString());
         
+        gameList = RC.loadAllGames(steamgames);
+        commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
+        bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
+        rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGames, bonusScoreFromFriend);
+        System.out.println("dengan friend: " + rankedGameswithFriend.toString());        
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// penghitungan dengan kemunculan
+//
 //        gameResults = RC.computeJaccardScore2(steamgames, ugs);
-//        rankedGames = RC.recommendbyScore(gameResults);
+//        rankedGames = RC.recommendbyAppearance(steamgames, gameResults);
 //        System.out.println("tanpa friend: " + rankedGames.toString());
 //        
 //        gameList = RC.loadAllGames(steamgames);
@@ -102,19 +108,7 @@ public class Main2 {
 //        bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
 //        rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGames, bonusScoreFromFriend);
 //        System.out.println("dengan friend: " + rankedGameswithFriend.toString());
-        
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-        gameResults = RC.computeJaccardScore2(steamgames, ugs);
-        rankedGames = RC.recommendbyAppearance(steamgames, gameResults);
-        System.out.println("tanpa friend: " + rankedGames.toString());
-        
-        gameList = RC.loadAllGames(steamgames);
-        commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
-        bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
-        rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGames, bonusScoreFromFriend);
-        System.out.println("dengan friend: " + rankedGameswithFriend.toString());
-    }
+////////////////////////////////////////////////////////////////////////////////          
+    }  
 }
