@@ -24,8 +24,6 @@ public class Main {
     private static Map<String, Integer> commonGamesinFriend;
     private static List<String> gameList;
     
-    private static Map<String, Double> sortedGames;
-    private static Map<String, Double> top50Games;
     private static Map<String, Map<String,Double>> gameResults;
     
     
@@ -47,6 +45,7 @@ public class Main {
         ugs.scrape(steam64id);
         us.scrape(steam64id);
         
+        // menghilangkan 5 game untuk diuji
         RC.removeRandomGame(5, ugs);
 
         //mengambil game yang ada di dalam Steam
@@ -86,7 +85,7 @@ public class Main {
 //  penghitungan dengan skor
 //
         gameResults = RC.computeJaccardScore2(steamgames, ugs);
-        rankedGames = RC.recommendbyScore(gameResults);
+        rankedGames = RC.recommendbyScore(gameResults, ugs);
         System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames).toString());
         
         gameList = RC.loadAllGames(steamgames);
@@ -100,8 +99,8 @@ public class Main {
 // penghitungan dengan kemunculan
 //
 //        gameResults = RC.computeJaccardScore2(steamgames, ugs);
-//        rankedGames = RC.recommendbyAppearance(steamgames, gameResults);
-//        System.out.println("tanpa friend: " + rankedGames.toString());
+//        rankedGames = RC.recommendbyAppearance(steamgames, gameResults, ugs);
+//        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames).toString());
 //        
 //        gameList = RC.loadAllGames(steamgames);
 //        commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);

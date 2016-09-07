@@ -1,5 +1,6 @@
 package srecsys.recommendation;
 
+import com.sun.javafx.font.freetype.HBGlyphLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -163,7 +165,8 @@ public class RecommendationController {
         
         for(int i = 0; i < ugs.games.size(); i++){
             for(int j = 0; j < ugs.games.get(i).genres.size(); j++){
-                genres.add(ugs.games.get(i).genres.get(j));
+                if(!ugs.games.get(i).genres.get(j).isEmpty())
+                    genres.add(ugs.games.get(i).genres.get(j));
             }
         }
         
@@ -354,7 +357,12 @@ public class RecommendationController {
         double jumlahAppID1 = computejumlahTerm(appID1);        
         double jumlahAppID2 = computejumlahTerm(appID2);
         
-        return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
+        if(jumlahAppID1 + jumlahAppID2 - irisan != 0){
+            return irisan / (jumlahAppID1 + jumlahAppID2 - irisan);
+        }
+        else{
+            return -999.0;
+        }
     }
     
     public double computeIrisan(String appID1, String appID2){
@@ -364,9 +372,11 @@ public class RecommendationController {
                 
         double counterIrisan = 0.0;
         
-        for (String s : tempTermsAppID1) {
-            if(tempTermsAppID2.contains(s)){
-                counterIrisan = counterIrisan + 1.0;
+        if(tempTermsAppID1!=null && tempTermsAppID2!=null){
+            for (String s : tempTermsAppID1) {
+                if(tempTermsAppID2.contains(s)){
+                    counterIrisan = counterIrisan + 1.0;
+                }
             }
         }
         
@@ -377,7 +387,9 @@ public class RecommendationController {
         
         List<String> tempTermsAppID = new ArrayList<>();
         
-        tempTermsAppID = loadedTerms.get(appID);
+        if(loadedTerms.get(appID) != null){
+            tempTermsAppID = loadedTerms.get(appID);
+        }
         
         return tempTermsAppID.size();
     }
@@ -472,7 +484,7 @@ public class RecommendationController {
             gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
         }
         
-        System.out.println("skor jaccard : " + gameScores.toString());
+//        System.out.println("skor jaccard : " + gameScores.toString());
         
         return gameScores;
     }    
@@ -549,8 +561,7 @@ public class RecommendationController {
         
         friendGames = getFriendGames(ufs, ugs, steam64id);
         
-        System.out.println("tes friendGames: " + friendGames.size());
-        System.out.println("gamelist.size : " + gamelist.size());
+        System.out.println("size dari game steam : " + gamelist.size());
                 
         for(int i = 0; i < gamelist.size(); i++){
             counter = 0;
@@ -575,7 +586,7 @@ public class RecommendationController {
         
         Map<String, Double> newmap = new HashMap<>();
         int counter = 0;
-        int limit = 200;
+        int limit = 12;
                 
         for(Map.Entry<String, Double> mapcontent : map.entrySet()){
             newmap.put(mapcontent.getKey(), mapcontent.getValue());
@@ -588,7 +599,7 @@ public class RecommendationController {
         return newmap;
     }
     
-    public Map<String, Double> recommendbyScore(Map<String, Map<String, Double>> scoremap){
+    public Map<String, Double> recommendbyScore(Map<String, Map<String, Double>> scoremap, UserGameScraper ugs){
         // Map<String, Map<String, Double>> mau jadi Map<String, Double>
         // Map<owned_app, Map<steam_app, similarity>> mau jadi Map<steam_app, similarity>
         
@@ -612,6 +623,16 @@ public class RecommendationController {
                 else{
                     // masukin
                     finalRecommendation.put(score.getKey(), score.getValue());
+                }
+            }
+        }
+        
+        //ilangin game yang udah dipunya
+        
+        for(Map.Entry<String, Double> rec : finalRecommendation.entrySet()){
+            for(int i = 0; i < ugs.games.size(); i++){
+                if(rec.getKey().contains(ugs.games.get(i).appID)){
+                    rec.setValue(-999.0);
                 }
             }
         }
@@ -647,12 +668,12 @@ public class RecommendationController {
             bonusScore.put(commGames.getKey(), (commGames.getValue() * 1D)/(friendsize * 1D));            
         }
         
-        System.out.println("bonus: " + bonusScore.toString());
+//        System.out.println("bonus: " + bonusScore.toString());
         
         return bonusScore;
     }
     
-    public Map<String, Double> recommendbyAppearance(Games steamgames, Map<String, Map<String, Double>> scoremap){
+    public Map<String, Double> recommendbyAppearance(Games steamgames, Map<String, Map<String, Double>> scoremap, UserGameScraper ugs){
         // punya Map<String, Map<String, Double>> dari computeJaccardScore2
         //           owned_ID   steam_ID sim
         
@@ -669,6 +690,16 @@ public class RecommendationController {
             }
             
             finalRecommendation.put(steamgamelist.get(i), counter*1D / scoremap.size()*1D);
+        }
+        
+                //ilangin game yang udah dipunya
+        
+        for(Map.Entry<String, Double> rec : finalRecommendation.entrySet()){
+            for(int i = 0; i < ugs.games.size(); i++){
+                if(rec.getKey().contains(ugs.games.get(i).appID)){
+                    rec.setValue(-999.0);
+                }
+            }
         }
         
         return finalRecommendation;
@@ -702,17 +733,32 @@ public class RecommendationController {
         return randomNum;
     }
     
-    public void removeRandomGame(int jumlah, UserGameScraper ugs){
+    public List<String> removeRandomGame(int jumlah, UserGameScraper ugs){
+        List<String> removedGame = new ArrayList<>();
         
         int index;
         // remove 5 game pemain
         for(int i = 0; i < jumlah; i++){
             index = randInt(0, ugs.games.size()-1);
             System.out.println("Removing game : " + ugs.games.get(index).appID);
+            removedGame.add(ugs.games.get(index).appID);
             ugs.games.remove(index);
         }
         
-        System.out.println("Games right now : " + ugs.games.size());
+        System.out.println("Removed games : " + removedGame.toString());
+        return removedGame;
+    }
+    
+    public void saveRemovedRandomGame (String saveLocation, List<String> removedGame){
+        try {
+            PrintWriter out = new PrintWriter(saveLocation);
+            for(String s: removedGame){
+                out.println(s);
+            }
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RecommendationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void removeGamebyAppID(String appID, UserGameScraper ugs){

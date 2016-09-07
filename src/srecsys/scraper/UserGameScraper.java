@@ -21,7 +21,7 @@ public class UserGameScraper {
     }
     
     public void scrape(String steam64id) throws Exception{
-        System.out.println("Scraping games for user "+steam64id);
+//        System.out.println("Scraping games for user "+steam64id);
         games = new ArrayList<>();
         
         String uri = String.format(
@@ -108,7 +108,7 @@ public class UserGameScraper {
     }
     
     public void scrapeAppIDOnly(String steam64id) throws Exception{
-        System.out.println("Scraping games for user "+steam64id);
+//        System.out.println("Scraping games for user "+steam64id);
         gamesAppID = new ArrayList<>();
         
         String uri = String.format(

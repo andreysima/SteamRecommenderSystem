@@ -22,7 +22,7 @@ public class UserFriendScraper {
     }
     
     public void scrape(String steam64id) throws IOException{
-        System.out.println("Scraping friendlist for user "+steam64id);
+//        System.out.println("Scraping friendlist for user "+steam64id);
         friendlist = new ArrayList<>();
         
         String uri = String.format(
