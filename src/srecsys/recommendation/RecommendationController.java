@@ -431,7 +431,7 @@ public class RecommendationController {
                 gameScore.put(steam.getKey(), tempScore);
             }
             sortedGameScore = sortMapByValues(gameScore);
-            top50GameScore = getTop50Values(sortedGameScore);
+            top50GameScore = getTopNValues(sortedGameScore, 12);
             sorted50GameScore = sortMapByValues(top50GameScore);
             
             gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
@@ -478,7 +478,7 @@ public class RecommendationController {
                 gameScore.put(steam.getKey(), tempScore);
             }
             sortedGameScore = sortMapByValues(gameScore);
-            top50GameScore = getTop50Values(sortedGameScore);
+            top50GameScore = getTopNValues(sortedGameScore, 12);
             sorted50GameScore = sortMapByValues(top50GameScore);
             
             gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
@@ -582,11 +582,10 @@ public class RecommendationController {
         return gameCount;
     }
     
-    public Map<String, Double> getTop50Values(Map<String, Double> map){
+    public Map<String, Double> getTopNValues(Map<String, Double> map, int limit){
         
         Map<String, Double> newmap = new HashMap<>();
         int counter = 0;
-        int limit = 12;
                 
         for(Map.Entry<String, Double> mapcontent : map.entrySet()){
             newmap.put(mapcontent.getKey(), mapcontent.getValue());
@@ -643,8 +642,8 @@ public class RecommendationController {
     public Map<String, Double> recommendbyScorewithFriend(Map<String, Double> recommendation, Map<String, Double> bonusScore){
         
         Map<String, Double> sortedFinalRecommendation = new HashMap<>();
-        Map<String, Double> top50FinalRecommendation = new HashMap<>();
-        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
+        Map<String, Double> top12FinalRecommendation = new HashMap<>();
+        Map<String, Double> sorted12FinalRecommendation = new HashMap<>();
         
         for(Map.Entry<String, Double> rec : recommendation.entrySet()){
             if(bonusScore.keySet().contains(rec.getKey())){
@@ -653,10 +652,10 @@ public class RecommendationController {
         }
         
         sortedFinalRecommendation = sortMapByValues(recommendation);
-        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
-        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
+        top12FinalRecommendation = getTopNValues(sortedFinalRecommendation, 12);
+        sorted12FinalRecommendation = sortMapByValues(top12FinalRecommendation);
         
-        return sorted50FinalRecommendation;
+        return sorted12FinalRecommendation;
     }
     
     public Map<String, Double> bonusScoreFromFriends(Map<String, Integer> commonGames, UserFriendScraper ufs){
@@ -773,16 +772,16 @@ public class RecommendationController {
         System.out.println("Games right now : " + ugs.games.size());
     }
 
-    public Map<String, Double> sortandCutMap(Map<String, Double> finalRecommendation){
+    public Map<String, Double> sortandCutMap(Map<String, Double> finalRecommendation, int limit){
         
         Map<String, Double> sortedFinalRecommendation = new HashMap<>();
-        Map<String, Double> top50FinalRecommendation = new HashMap<>();
-        Map<String, Double> sorted50FinalRecommendation = new HashMap<>();
+        Map<String, Double> topNFinalRecommendation = new HashMap<>();
+        Map<String, Double> sortedNFinalRecommendation = new HashMap<>();
         
         sortedFinalRecommendation = sortMapByValues(finalRecommendation);
-        top50FinalRecommendation = getTop50Values(sortedFinalRecommendation);
-        sorted50FinalRecommendation = sortMapByValues(top50FinalRecommendation);
+        topNFinalRecommendation = getTopNValues(sortedFinalRecommendation, limit);
+        sortedNFinalRecommendation = sortMapByValues(topNFinalRecommendation);
         
-        return sorted50FinalRecommendation;
+        return sortedNFinalRecommendation;
     }
 }

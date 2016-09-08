@@ -86,7 +86,7 @@ public class Main {
 //
         gameResults = RC.computeJaccardScore2(steamgames, ugs);
         rankedGames = RC.recommendbyScore(gameResults, ugs);
-        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames).toString());
+        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames, 12).toString());
         
         gameList = RC.loadAllGames(steamgames);
         commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
