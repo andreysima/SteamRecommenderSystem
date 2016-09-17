@@ -24,7 +24,7 @@ import srecsys.scraper.UserScraper;
  */
 public class Testing {
 
-    private static String steam64id = "76561198065675575";
+    private static String steam64id = "76561198104407959";
 
     public Testing() {
     }

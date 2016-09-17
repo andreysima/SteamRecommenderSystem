@@ -25,6 +25,8 @@ public class Game {
     private String about_the_game;
     private Long playtime_forever;
     private Long playtime_2weeks;
+    private String websiteURL;
+    private String imageURL;
     public boolean isFree;
     public List<String> developers;
     public List<String> publishers;
@@ -38,6 +40,8 @@ public class Game {
         this.name = null;
         this.playtime_forever = null;
         this.playtime_2weeks = null;
+        this.websiteURL = null;
+        this.imageURL = null;
         this.developers = new ArrayList<>();
         this.publishers = new ArrayList<>();
         this.genres = new ArrayList<>();
@@ -86,6 +90,22 @@ public class Game {
 
     public void setPlaytime_2weeks(Long playtime_2weeks) {
         this.playtime_2weeks = playtime_2weeks;
+    }
+    
+    public String getWebsiteURL() {
+        return websiteURL;
+    }
+
+    public void setWebsiteURL(String websiteURL) {
+        this.websiteURL = websiteURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
     
     public String getDetailed_description() {

@@ -108,7 +108,7 @@ public class UserGameScraper {
     }
     
     public void scrapeAppIDOnly(String steam64id) throws Exception{
-//        System.out.println("Scraping games for user "+steam64id);
+
         gamesAppID = new ArrayList<>();
         
         String uri = String.format(
@@ -126,12 +126,8 @@ public class UserGameScraper {
             for(int i = 0; i < arr_games.length(); i++){
                 g = new Game();
                 g.setName(arr_games.getJSONObject(i).get("name").toString());
-                g.setPlaytime_forever(arr_games.getJSONObject(i).getLong("playtime_forever"));
-                if(arr_games.getJSONObject(i).has("playtime_2weeks")){
-                    g.setPlaytime_2weeks(arr_games.getJSONObject(i).getLong("playtime_2weeks"));
-                }
                 g.appID = arr_games.getJSONObject(i).get("appid").toString();
-                g.addTerm(g.appID);
+//                g.addTerm(g.appID);
                 gamesAppID.add(g);
             }
         }

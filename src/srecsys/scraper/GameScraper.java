@@ -1,4 +1,4 @@
-package srecsys.scraper;
+ package srecsys.scraper;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -149,7 +149,7 @@ public class GameScraper {
             file.write(gameObj.toString());
             System.out.println("Successfully Copied JSON Object to File...");
 	}
-    }
+    }    
     
     public static void main(String[] args) throws IOException, InterruptedException{
         GameScraper gs = new GameScraper();
