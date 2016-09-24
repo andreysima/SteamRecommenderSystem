@@ -27,6 +27,7 @@ public class Game {
     private Long playtime_2weeks;
     private String websiteURL;
     private String imageURL;
+    private String pc_requirements; 
     public boolean isFree;
     public List<String> developers;
     public List<String> publishers;
@@ -49,7 +50,7 @@ public class Game {
         this.stopWords = new ArrayList<>();
         
         try {
-            BufferedReader br = new BufferedReader(new FileReader("data/stopwords.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("D:/NetBeansProjects/SRecSysSpring/data/stopwords.txt"));
             String currentLine;
             
             while((currentLine = br.readLine()) != null){
@@ -106,6 +107,14 @@ public class Game {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getPc_requirements() {
+        return pc_requirements;
+    }
+
+    public void setPc_requirements(String pc_requirements) {
+        this.pc_requirements = pc_requirements;
     }
     
     public String getDetailed_description() {

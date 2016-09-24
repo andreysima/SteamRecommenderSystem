@@ -134,8 +134,7 @@ public class Main {
         recommendationResult = new ArrayList<>(rankedGameswithFriend.keySet());
         
         recResultwithURL = scrapeURLforView(recommendationResult);
-        
-        
+                
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////          
     }  

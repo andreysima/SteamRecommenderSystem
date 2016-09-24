@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject; 
 
@@ -68,6 +70,25 @@ public class GameScraper {
                     g.setAbout_the_game(gamedata.getString("about_the_game"));
                 else//jika tidak ada key about the game
                     g.setAbout_the_game("");
+                
+                if(gamedata.has("pc_requirements")){
+                    String pc_req = "";
+                    try{
+                        JSONObject game_requirements = gamedata.getJSONObject("pc_requirements");
+                        pc_req = game_requirements.getString("minimum");
+                    }
+                    catch(Exception e){}
+                    try{
+                        JSONArray arr_requirements = gamedata.getJSONArray("pc_requirements");
+                        pc_req = arr_requirements.getJSONObject(0).getString("minimum");
+                        
+                    }
+                    catch(Exception e){}
+                    g.setPc_requirements(pc_req);
+                    System.out.println("PC requirements: " + pc_req);
+                }
+                else//jika tidak ada key pc_req
+                    g.setPc_requirements("");                
 
                 if(gamedata.has("developers")){
                     JSONArray arr_developers = gamedata.getJSONArray("developers");
@@ -107,7 +128,7 @@ public class GameScraper {
     }
     
     // membuat file json untuk semua game
-    public void createJSONFile() throws InterruptedException, IOException{
+    public void createJSONFile(){
         JSONArray gameArray = new JSONArray();
         JSONObject game = new JSONObject();
         JSONArray developersArray = new JSONArray();
@@ -116,39 +137,48 @@ public class GameScraper {
         JSONObject gameObj = new JSONObject();
         
         for(int i = 0; i < applist.size(); i++){
-            int id = filterGames(i);
-            if(id > 0){
-                game = new JSONObject();
-                game.put("appID", gamelist.get(id).getAppID());
-                game.put("Name", gamelist.get(id).getName());
-                for(int j = 0; j < gamelist.get(id).developers.size(); j++){
-                    developersArray = new JSONArray();
-                    developersArray.put(gamelist.get(id).developers.get(j));
+            try {
+                int id = filterGames(i);
+                if(id > 0){
+                    game = new JSONObject();
+                    game.put("appID", gamelist.get(id).getAppID());
+                    game.put("Name", gamelist.get(id).getName());
+                    for(int j = 0; j < gamelist.get(id).developers.size(); j++){
+                        developersArray = new JSONArray();
+                        developersArray.put(gamelist.get(id).developers.get(j));
+                    }
+                    game.put("Developers", developersArray);
+                    for(int j = 0; j < gamelist.get(id).publishers.size(); j++){
+                        publishersArray = new JSONArray();
+                        publishersArray.put(gamelist.get(id).publishers.get(j));
+                    }
+                    game.put("Publishers", publishersArray);
+                    for(int j = 0; j < gamelist.get(id).genres.size(); j++){
+                        genresArray = new JSONArray();
+                        genresArray.put(gamelist.get(id).genres.get(j));
+                    }
+                    game.put("Genres", genresArray);
+                    game.put("Detailed Description", gamelist.get(id).getDetailed_description());
+                    game.put("About the Game", gamelist.get(id).getAbout_the_game());
+                    game.put("PC Requirements", gamelist.get(id).getPc_requirements());
+                    gameArray.put(game);
                 }
-                game.put("Developers", developersArray);
-                for(int j = 0; j < gamelist.get(id).publishers.size(); j++){
-                    publishersArray = new JSONArray();
-                    publishersArray.put(gamelist.get(id).publishers.get(j));
-                }
-                game.put("Publishers", publishersArray);
-                for(int j = 0; j < gamelist.get(id).genres.size(); j++){
-                    genresArray = new JSONArray();
-                    genresArray.put(gamelist.get(id).genres.get(j));
-                }
-                game.put("Genres", genresArray);
-                game.put("Detailed Description", gamelist.get(id).getDetailed_description());
-                game.put("About the Game", gamelist.get(id).getAbout_the_game());
-                gameArray.put(game);
+                gameObj.put("Games", gameArray);
+                if(i%150==0 && i!=0)
+                    Thread.sleep(240000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameScraper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GameScraper.class.getName()).log(Level.SEVERE, null, ex);
             }
-            gameObj.put("Games", gameArray);
-            if(i%150==0 && i!=0)
-                Thread.sleep(240000);
         }
         
-        try (FileWriter file = new FileWriter("data/steamgamelistraw.json")) {
+        try (FileWriter file = new FileWriter("D:/NetBeansProjects/SRecSysSpring/data/steamgamelistraw.json")) {
             file.write(gameObj.toString());
             System.out.println("Successfully Copied JSON Object to File...");
-	}
+	} catch (IOException ex) {
+            Logger.getLogger(GameScraper.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     public static void main(String[] args) throws IOException, InterruptedException{
