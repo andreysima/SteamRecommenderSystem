@@ -87,7 +87,7 @@ public class Test {
         commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
         bonusScoreFromFriend = RC.bonusScoreFromFriends(commonGamesinFriend, ufs);
         rankedGameswithFriend = RC.recommendbyScorewithFriend(rankedGamesAppearance, bonusScoreFromFriend);
-        System.out.println("Metode Skor Dengan Friend: " + RC.sortandCutMap(rankedGameswithFriend, 12).toString());
+        System.out.println("Metode Appearance Dengan Friend: " + RC.sortandCutMap(rankedGameswithFriend, 12).toString());
 //        System.out.println("Metode Appearance Dengan Friend: " + rankedGameswithFriend.toString());
         System.out.println("----------------------------------------------------");
 ////////////////////////////////////////////////////////////////////////////////          
