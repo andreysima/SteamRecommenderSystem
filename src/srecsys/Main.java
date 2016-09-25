@@ -81,7 +81,7 @@ public class Main {
         gameResults = new HashMap<>();
         recResultwithURL = new ArrayList<>();
         
-        String steam64id = "76561198118645234";
+        String steam64id = "76561198115471724";
         
         //mengambil game, friendlist, dan info yang dimiliki user
         ufs.scrape(steam64id);
@@ -121,9 +121,9 @@ public class Main {
 ////////////////////////////////////////////////////////////////////////////////
 // penghitungan dengan kemunculan
 //
-        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+        gameResults = RC.computeJaccardScore(steamgames, ugs);
         rankedGames = RC.recommendbyAppearance(steamgames, gameResults, ugs);
-//        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames,12).toString());
+        System.out.println("tanpa friend: " + RC.sortandCutMap(rankedGames,12).toString());
         
         gameList = RC.loadAllGames(steamgames);
         commonGamesinFriend = RC.getCommonGames(gameList, ufs, ugs, steam64id);
@@ -136,6 +136,22 @@ public class Main {
         recResultwithURL = scrapeURLforView(recommendationResult);
                 
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////          
+////////////////////////////////////////////////////////////////////////////////
+//        System.out.println("570 dengan 400 = " + RC.computeJaccardSimilarity("570", "400"));
+//        System.out.println("400 dengan 620 = " + RC.computeJaccardSimilarity("400", "620"));
+//        System.out.println("570 dengan 292120 = " + RC.computeJaccardSimilarity("570", "292120"));
+//        System.out.println("292120 dengan 292140 = " + RC.computeJaccardSimilarity("292120", "292140"));
+//        System.out.println("292120 dengan 345350 = " + RC.computeJaccardSimilarity("292120", "345350"));
+//        System.out.println("292140 dengan 345350 = " + RC.computeJaccardSimilarity("292140", "345350"));
+//        System.out.println("292140 dengan 351970 = " + RC.computeJaccardSimilarity("292140", "351970"));
+//        System.out.println("292140 dengan 372360 = " + RC.computeJaccardSimilarity("292140", "372360"));
+//        System.out.println("351970 dengan 372360 = " + RC.computeJaccardSimilarity("351970", "372360"));
+//        System.out.println("351970 dengan 570 = " + RC.computeJaccardSimilarity("351970", "570"));
+//        System.out.println("72850 dengan 570 = " + RC.computeJaccardSimilarity("72850", "570"));
+//        System.out.println("400 dengan 252950 = " + RC.computeJaccardSimilarity("400", "252950"));
+//        System.out.println("72850 dengan 252950 = " + RC.computeJaccardSimilarity("72850", "252950"));
+//        System.out.println("570 dengan 252950 = " + RC.computeJaccardSimilarity("570", "252950"));
+//        System.out.println("292120 dengan 252950 = " + RC.computeJaccardSimilarity("292120", "252950"));
+//        System.out.println("570 dengan 351970 = " + RC.computeJaccardSimilarity("570", "351970"));
     }  
 }

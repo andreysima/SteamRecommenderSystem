@@ -1,6 +1,5 @@
 package srecsys.recommendation;
 
-import com.sun.javafx.font.freetype.HBGlyphLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -442,7 +441,7 @@ public class RecommendationController {
         return gameScores;
     } 
         
-    public Map<String, Map<String, Double>> computeJaccardScore(Games steamgames, UserGameScraper ugs){
+    public Map<String, Map<String, Double>> computeJaccardScore1(Games steamgames, UserGameScraper ugs){
         
         double tempScore;
         Map<String, Double> gameScore;
@@ -460,14 +459,14 @@ public class RecommendationController {
         return gameScores;
     }
     
-    public Map<String, Map<String, Double>> computeJaccardScore2(Games steamgames, UserGameScraper ugs){
+    public Map<String, Map<String, Double>> computeJaccardScore(Games steamgames, UserGameScraper ugs){
         // Map<owned_appID, Map<steam_appID, similarity_score>>
         
         double tempScore;
         Map<String, Double> gameScore;
         Map<String, Double> sortedGameScore = new HashMap<>();
-        Map<String, Double> top50GameScore = new HashMap<>();
-        Map<String, Double> sorted50GameScore = new HashMap<>();
+        Map<String, Double> top12GameScore = new HashMap<>();
+        Map<String, Double> sorted12GameScore = new HashMap<>();
         Map<String, Map<String, Double>> gameScores = new HashMap<>();
         
         for(int i = 0; i < ugs.games.size(); i++){
@@ -478,16 +477,45 @@ public class RecommendationController {
                 gameScore.put(steam.getKey(), tempScore);
             }
             sortedGameScore = sortMapByValues(gameScore);
-            top50GameScore = getTopNValues(sortedGameScore, 12);
-            sorted50GameScore = sortMapByValues(top50GameScore);
+            top12GameScore = getTopNValues(sortedGameScore, 12);
+            sorted12GameScore = sortMapByValues(top12GameScore);
             
-            gameScores.put(ugs.games.get(i).appID, sorted50GameScore);
+            gameScores.put(ugs.games.get(i).appID, sortedGameScore);
         }
         
 //        System.out.println("skor jaccard : " + gameScores.toString());
         
         return gameScores;
-    }    
+    }
+    
+     public Map<String, Map<String, Double>> computeJaccardAppearance(Games steamgames, UserGameScraper ugs){
+        // Map<owned_appID, Map<steam_appID, similarity_score>>
+        
+        double tempScore;
+        Map<String, Double> gameScore;
+        Map<String, Double> sortedGameScore = new HashMap<>();
+        Map<String, Double> top12GameScore = new HashMap<>();
+        Map<String, Double> sorted12GameScore = new HashMap<>();
+        Map<String, Map<String, Double>> gameScores = new HashMap<>();
+        
+        for(int i = 0; i < ugs.games.size(); i++){
+            gameScore = new HashMap<>();
+            for(Map.Entry<String, Game> steam : steamgames.gameList.entrySet()){
+                tempScore = computeJaccardSimilarity(ugs.games.get(i).appID, steam.getKey());
+//                System.out.println("counting jaccard score...");
+                gameScore.put(steam.getKey(), tempScore);
+            }
+            sortedGameScore = sortMapByValues(gameScore);
+            top12GameScore = getTopNValues(sortedGameScore, 12);
+            sorted12GameScore = sortMapByValues(top12GameScore);
+            
+            gameScores.put(ugs.games.get(i).appID, sorted12GameScore);
+        }
+        
+//        System.out.println("skor jaccard : " + gameScores.toString());
+        
+        return gameScores;
+    }  
     
     public Map<String, Double> computeFinalScore(Map<String, Map<String, Double>> gameScores){
         
@@ -655,16 +683,17 @@ public class RecommendationController {
         top12FinalRecommendation = getTopNValues(sortedFinalRecommendation, 12);
         sorted12FinalRecommendation = sortMapByValues(top12FinalRecommendation);
         
-        return sorted12FinalRecommendation;
+        return sortedFinalRecommendation;
     }
     
     public Map<String, Double> bonusScoreFromFriends(Map<String, Integer> commonGames, UserFriendScraper ufs){
         
         Map<String, Double> bonusScore = new HashMap<>();
         int friendsize = ufs.friendlist.size();
+        double konstanta = 0.3;
         
         for(Map.Entry<String, Integer> commGames : commonGames.entrySet()){
-            bonusScore.put(commGames.getKey(), (commGames.getValue() * 1D)/(friendsize * 1D));            
+            bonusScore.put(commGames.getKey(), konstanta * (commGames.getValue() * 1D)/(friendsize * 1D));            
         }
         
 //        System.out.println("bonus: " + bonusScore.toString());

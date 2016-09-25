@@ -42,7 +42,7 @@ public class Games {
             // untuk game_name
             String game_name = (String) game.get("Name");
             g.setName(game_name);        
-            g.addTerm(game_name);
+//            g.addTerm(game_name);
             // untuk detailed_description
             String game_detailed_description = (String) game.get("Detailed Description");
             g.setDetailed_description(game_detailed_description);            
@@ -76,6 +76,7 @@ public class Games {
             while(i_genre.hasNext()){
                 game_genres = (String) i_genre.next();
                 g.genres.add(game_genres);
+                g.addTerm(game_genres);
             }
             
             gameList.put(g.appID, g);

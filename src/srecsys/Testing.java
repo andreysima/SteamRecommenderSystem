@@ -92,7 +92,7 @@ public class Testing {
 //        invertedTerms = RC.loadInvertedFile("data/terms.txt");
         RC.loadTerms("data/terms.txt");
         
-        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+        gameResults = RC.computeJaccardScore(steamgames, ugs);
         rankedGamesScore = RC.recommendbyScore(gameResults, ugs);
         
         Map<String, Double> rankedGamesScoreCut = RC.sortandCutMap(rankedGamesScore, 12);
@@ -206,7 +206,7 @@ public class Testing {
 //        invertedTerms = RC.loadInvertedFile("data/terms.txt");
         RC.loadTerms("data/terms.txt");
         
-        gameResults = RC.computeJaccardScore2(steamgames, ugs);
+        gameResults = RC.computeJaccardScore(steamgames, ugs);
         rankedGamesScore = RC.recommendbyScore(gameResults, ugs);
         
         Map<String, Double> rankedGamesScoreCut = RC.sortandCutMap(rankedGamesScore, 12);
