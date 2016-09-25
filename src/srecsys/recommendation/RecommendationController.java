@@ -588,9 +588,7 @@ public class RecommendationController {
         int counter;
         
         friendGames = getFriendGames(ufs, ugs, steam64id);
-        
-        System.out.println("size dari game steam : " + gamelist.size());
-                
+                        
         for(int i = 0; i < gamelist.size(); i++){
             counter = 0;
             for(Map.Entry<String, Set<String>> tempGames : friendGames.entrySet()){
